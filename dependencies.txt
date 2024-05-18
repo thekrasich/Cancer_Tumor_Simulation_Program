@@ -4,3 +4,4 @@ tkinter
 customtkinter
 numpy
 matplotlib
+CTkMenuBar

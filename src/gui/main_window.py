@@ -1,22 +1,36 @@
 import customtkinter as ctk
+from CTkMenuBar import *
 from common.constants import (
     MAIN_WINDOW_TITLE,
-    MAIN_WINDOW_INITIAL_HEIGHT,
-    MAIN_WINDOW_INITIAL_WIDTH,
 )
+from gui.components.menu.main_window_menu_bar import MainWindowMenuBar
+from gui.components.tab_view.main_window_tab_view import MainWindowTabView
 from gui.helpers.window_geometry_helper import center_window_to_display
-
-ctk.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
-ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
+from model.application_settings import ApplicationSettings
 
 
 class MainWindow(ctk.CTk):
-    def __init__(self: ctk.CTk, parent, *args, **kwargs):
+    def __init__(self: ctk.CTk, parent, *args, **kwargs) -> None:
         super().__init__()
 
+        ### Variables of class.
+        self.application_settings: ApplicationSettings = ApplicationSettings()
+
+        ### Initial window settings.
         self.title(MAIN_WINDOW_TITLE)
         self.geometry(
             center_window_to_display(
-                self, MAIN_WINDOW_INITIAL_WIDTH, MAIN_WINDOW_INITIAL_HEIGHT
+                self,
+                self.application_settings.current_width,
+                self.application_settings.current_heigth,
             )
         )
+        self.resizable(False, False)
+        ctk.set_appearance_mode(self.application_settings.current_appearance_mode)
+        ctk.set_default_color_theme(self.application_settings.current_color_theme)
+
+        ### Upper menu bar.
+        menu_bar: MainWindowMenuBar = MainWindowMenuBar(self)
+
+        ### Main control tabs.
+        tabs: MainWindowTabView = MainWindowTabView(self)
