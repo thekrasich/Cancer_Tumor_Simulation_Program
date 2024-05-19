@@ -41,4 +41,13 @@ MAIN_WINDOW_TAB_START_TITLE: str = "Start Panel"
 MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH: int = 430
 MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGTH: int = 65
 
+AREA_TAB_MAIN_TITLE: str = "Generate the area"
+AREA_TAB_BOUNDARY_CONDITION_LABEL_TEXT: str = "Boundary Conditions"
+AREA_TAB_PRESETS_BUTTON_TEXT: str = "Choose from Presets"
+AREA_TAB_FILE_BUTTON_TEXT: str = "Select file"
+AREA_TAB_WRITE_FORMULA_BUTTON_TEXT: str = "Write a formula"
+AREA_TAB_MANUAL_INPUT_BUTTON_TEXT: str = "Manual points input"
+AREA_TAB_BOUNDARY_CONDITION_BUTTON_TEXT: str = "Configure boundary conditions"
+AREA_TAB_CLEAR_AREA_BUTTON_TEXT: str = "Clear area"
+
 ### Tabs sections.
