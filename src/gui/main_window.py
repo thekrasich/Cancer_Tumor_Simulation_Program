@@ -4,6 +4,7 @@ from common.constants import (
     MAIN_WINDOW_TITLE,
 )
 from gui.components.menu.main_window_menu_bar import MainWindowMenuBar
+from gui.components.plotter.plot_area import AreaPlotArea
 from gui.components.tab_view.main_window_tab_view import MainWindowTabView
 from gui.helpers.window_geometry_helper import center_window_to_display
 from model.application_settings import ApplicationSettings
@@ -34,3 +35,6 @@ class MainWindow(ctk.CTk):
 
         ### Main control tabs.
         tabs: MainWindowTabView = MainWindowTabView(self)
+
+        ### Mesh area.
+        plot_area: AreaPlotArea = AreaPlotArea(self)
