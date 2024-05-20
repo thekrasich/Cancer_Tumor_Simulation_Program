@@ -33,6 +33,7 @@ from gui.components.tab_view.generic_tab_button import (
     GenericTabButton,
     WarningGenericTabButton,
 )
+from gui.components.window.presets_window import PresetWindow
 
 
 class MainWindowTabView(ctk.CTkTabview):
@@ -43,10 +44,14 @@ class MainWindowTabView(ctk.CTkTabview):
             parent.application_settings.current_heigth - 50,
             20,
         )
+        self.presets_window = None
         self.pack()
 
         def presets_button_click() -> None:
-            print("test")
+            if self.presets_window is None or not self.presets_window.winfo_exists():
+                self.presets_window = PresetWindow(parent)
+            else:
+                self.settings_window.focus()
             pass
 
         def file_button_click() -> None:

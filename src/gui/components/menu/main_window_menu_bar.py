@@ -17,6 +17,8 @@ from gui.components.window.settings_window import SettingsWindow
 
 class MainWindowMenuBar(CTkMenuBar):
     def __init__(self: CTkMenuBar, parent) -> None:
+        self.settings_window = None
+
         def exit_button_click() -> None:
             messagebox_response = messagebox.askyesno(
                 MENU_EXIT_TAB_TITLE, MENU_EXIT_TAB_MESSAGE
@@ -26,7 +28,10 @@ class MainWindowMenuBar(CTkMenuBar):
                 exit()
 
         def settings_button_click() -> None:
-            settings_window: SettingsWindow = SettingsWindow(parent)
+            if self.settings_window is None or not self.settings_window.winfo_exists():
+                self.settings_window = SettingsWindow(parent)
+            else:
+                self.settings_window.focus()
 
         def about_button_click() -> None:
             messagebox.showinfo(MENU_ABOUT_TAB_TITLE, MENU_ABOUT_TAB_MESSAGE)

@@ -24,7 +24,7 @@ MENU_DOCUMMENTATION_URL: str = (
 
 ### SETTINGS GUI
 SETTINGS_WINDOW_TITLE: str = "Program Settings"
-SETTINGS_WINDOW_INITIAL_WIDTH: int = 1000
+SETTINGS_WINDOW_INITIAL_WIDTH: int = 600
 SETTINGS_WINDOW_INITIAL_HEIGHT: int = 680
 
 ### PLOTTER
@@ -41,6 +41,7 @@ MAIN_WINDOW_TAB_START_TITLE: str = "Start Panel"
 MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH: int = 430
 MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGTH: int = 65
 
+### TABS SECTIONS
 AREA_TAB_MAIN_TITLE: str = "Generate the area"
 AREA_TAB_BOUNDARY_CONDITION_LABEL_TEXT: str = "Boundary Conditions"
 AREA_TAB_PRESETS_BUTTON_TEXT: str = "Choose from Presets"
@@ -49,7 +50,6 @@ AREA_TAB_WRITE_FORMULA_BUTTON_TEXT: str = "Write a formula"
 AREA_TAB_MANUAL_INPUT_BUTTON_TEXT: str = "Manual points input"
 AREA_TAB_BOUNDARY_CONDITION_BUTTON_TEXT: str = "Configure boundary conditions"
 AREA_TAB_CLEAR_AREA_BUTTON_TEXT: str = "Clear area"
-
 
 MESH_TAB_MESHING_OPTIONS_LABEL: str = "Meshing options"
 MESH_TAB_MESHING_TYPE_LABEL: str = "Mesh Type"
@@ -61,14 +61,11 @@ MESH_TAB_GENERATE_MESH_BUTTON_LABEL: str = "Generate mesh"
 MESH_TAB_MESHING_TYPES: list[str] = ["Triangular"]
 MESH_TAB_NODES_ORDERS_TYPES: list[str] = ["Linear"]
 
-
 MATH_MODEL_TAB_GENERAL_LABEL: str = "Mathematical model settings"
 MATH_MODEL_TAB_DIFFUSION_COEFFICIENT_LABEL: str = "Diffusion Coefficient (D)"
 MATH_MODEL_TAB_ADHESION_MEASURE_LABEL: str = "Measure of adhesion (G)"
 MATH_MODEL_TAB_APOPTOSIS_MEASURE_LABEL: str = "Measure of apoptosis (A)"
 MATH_MODEL_TAB_SET_MODEL_BUTTON_LABEL: str = "Set Model Values"
 
-
 START_TAB_GENERAL_LABEL: str = "Start Panel"
 START_TAB_START_BUTTON_LABEL: str = "Start"
-### Tabs sections.
