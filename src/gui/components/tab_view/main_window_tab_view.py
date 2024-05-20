@@ -51,15 +51,18 @@ class MainWindowTabView(ctk.CTkTabview):
             if self.presets_window is None or not self.presets_window.winfo_exists():
                 self.presets_window = PresetWindow(parent)
             else:
-                self.settings_window.focus()
+                self.presets_window.focus()
             pass
 
         def file_button_click() -> None:
-            print("test")
-            pass
+            file_name = ctk.filedialog.askopenfilename()
+            print(file_name)
 
         def formula_button_click() -> None:
-            print("test")
+            dialog = ctk.CTkInputDialog(
+                text="Type in a formula:", title="Formula Input"
+            )
+            print("Formula:", dialog.get_input())
             pass
 
         def manual_input_button_click() -> None:
