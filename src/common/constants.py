@@ -50,4 +50,25 @@ AREA_TAB_MANUAL_INPUT_BUTTON_TEXT: str = "Manual points input"
 AREA_TAB_BOUNDARY_CONDITION_BUTTON_TEXT: str = "Configure boundary conditions"
 AREA_TAB_CLEAR_AREA_BUTTON_TEXT: str = "Clear area"
 
+
+MESH_TAB_MESHING_OPTIONS_LABEL: str = "Meshing options"
+MESH_TAB_MESHING_TYPE_LABEL: str = "Mesh Type"
+MESH_TAB_NODES_ORDER_LABEL: str = "Mesh Type"
+MESH_TAB_MINIMUM_ANGLE_LABEL: str = "Minimum anlge ( 20 - 60 )"
+MESH_TAB_MAXIMUM_AREA_LABEL: str = "Maximum area of element ( 0 - 1 )"
+MESH_TAB_GENERATE_MESH_BUTTON_LABEL: str = "Generate mesh"
+
+MESH_TAB_MESHING_TYPES: list[str] = ["Triangular"]
+MESH_TAB_NODES_ORDERS_TYPES: list[str] = ["Linear"]
+
+
+MATH_MODEL_TAB_GENERAL_LABEL: str = "Mathematical model settings"
+MATH_MODEL_TAB_DIFFUSION_COEFFICIENT_LABEL: str = "Diffusion Coefficient (D)"
+MATH_MODEL_TAB_ADHESION_MEASURE_LABEL: str = "Measure of adhesion (G)"
+MATH_MODEL_TAB_APOPTOSIS_MEASURE_LABEL: str = "Measure of apoptosis (A)"
+MATH_MODEL_TAB_SET_MODEL_BUTTON_LABEL: str = "Set Model Values"
+
+
+START_TAB_GENERAL_LABEL: str = "Start Panel"
+START_TAB_START_BUTTON_LABEL: str = "Start"
 ### Tabs sections.

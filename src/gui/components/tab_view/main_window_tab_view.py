@@ -13,6 +13,21 @@ from common.constants import (
     MAIN_WINDOW_TAB_MATH_MODEL_TITLE,
     MAIN_WINDOW_TAB_MESH_TITLE,
     MAIN_WINDOW_TAB_START_TITLE,
+    MATH_MODEL_TAB_ADHESION_MEASURE_LABEL,
+    MATH_MODEL_TAB_APOPTOSIS_MEASURE_LABEL,
+    MATH_MODEL_TAB_DIFFUSION_COEFFICIENT_LABEL,
+    MATH_MODEL_TAB_GENERAL_LABEL,
+    MATH_MODEL_TAB_SET_MODEL_BUTTON_LABEL,
+    MESH_TAB_GENERATE_MESH_BUTTON_LABEL,
+    MESH_TAB_MAXIMUM_AREA_LABEL,
+    MESH_TAB_MESHING_OPTIONS_LABEL,
+    MESH_TAB_MESHING_TYPE_LABEL,
+    MESH_TAB_MESHING_TYPES,
+    MESH_TAB_MINIMUM_ANGLE_LABEL,
+    MESH_TAB_NODES_ORDER_LABEL,
+    MESH_TAB_NODES_ORDERS_TYPES,
+    START_TAB_GENERAL_LABEL,
+    START_TAB_START_BUTTON_LABEL,
 )
 from gui.components.tab_view.generic_tab_button import (
     GenericTabButton,
@@ -120,13 +135,13 @@ class MainWindowTabView(ctk.CTkTabview):
         general_mesh_label = ctk.CTkLabel(
             mesh_tab, width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH, font=("Helvetica", 28)
         )
-        general_mesh_label.configure(text="Meshing options")
+        general_mesh_label.configure(text=MESH_TAB_MESHING_OPTIONS_LABEL)
         general_mesh_label.place(relx=0, rely=0)
 
         mesh_type_label = ctk.CTkLabel(
             mesh_tab, width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH, font=("Helvetica", 16)
         )
-        mesh_type_label.configure(text="Mesh Type")
+        mesh_type_label.configure(text=MESH_TAB_MESHING_TYPE_LABEL)
         mesh_type_label.place(relx=0, rely=0.05)
 
         mesh_type_combobox = ctk.CTkComboBox(
@@ -134,18 +149,18 @@ class MainWindowTabView(ctk.CTkTabview):
             MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             height=50,
             corner_radius=20,
-            values=["Triangular"],
+            values=MESH_TAB_MESHING_TYPES,
             state="readonly",
             font=("Helvetica", 16),
             dropdown_font=("Helvetica", 16),
         )
         mesh_type_combobox.place(relx=0, rely=0.11)
-        mesh_type_combobox.set("Triangular")
+        mesh_type_combobox.set(MESH_TAB_MESHING_TYPES[0])
 
         nodes_order_label = ctk.CTkLabel(
             mesh_tab, width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH, font=("Helvetica", 16)
         )
-        nodes_order_label.configure(text="Nodes Order")
+        nodes_order_label.configure(text=MESH_TAB_NODES_ORDER_LABEL)
         nodes_order_label.place(relx=0, rely=0.19)
 
         nodes_order_combobox = ctk.CTkComboBox(
@@ -153,19 +168,19 @@ class MainWindowTabView(ctk.CTkTabview):
             MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             height=50,
             corner_radius=20,
-            values=["Linear"],
+            values=MESH_TAB_NODES_ORDERS_TYPES,
             state="readonly",
             font=("Helvetica", 16),
             dropdown_font=("Helvetica", 16),
         )
         nodes_order_combobox.place(relx=0, rely=0.25)
-        nodes_order_combobox.set("Linear")
+        nodes_order_combobox.set(MESH_TAB_NODES_ORDERS_TYPES[0])
 
         ### TODO. Improve sliders
         minimum_angle_label = ctk.CTkLabel(
             mesh_tab, width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH, font=("Helvetica", 16)
         )
-        minimum_angle_label.configure(text="Minimum anlge ( 20 - 60 )")
+        minimum_angle_label.configure(text=MESH_TAB_MINIMUM_ANGLE_LABEL)
         minimum_angle_label.place(relx=0, rely=0.34)
 
         minimum_angle_slider = ctk.CTkSlider(
@@ -176,7 +191,7 @@ class MainWindowTabView(ctk.CTkTabview):
         maximum_area_label = ctk.CTkLabel(
             mesh_tab, width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH, font=("Helvetica", 16)
         )
-        maximum_area_label.configure(text="Maximum area of element ( 0 - 1 )")
+        maximum_area_label.configure(text=MESH_TAB_MAXIMUM_AREA_LABEL)
         maximum_area_label.place(relx=0, rely=0.43)
 
         maximum_area_slider = ctk.CTkSlider(
@@ -186,7 +201,7 @@ class MainWindowTabView(ctk.CTkTabview):
 
         mesh_area_button = GenericTabButton(
             mesh_tab,
-            "Generate mesh",
+            MESH_TAB_GENERATE_MESH_BUTTON_LABEL,
             mesh_area_button_click,
             0,
             0.9,
@@ -198,7 +213,7 @@ class MainWindowTabView(ctk.CTkTabview):
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 28),
         )
-        general_math_model_label.configure(text="Mathematical model settings")
+        general_math_model_label.configure(text=MATH_MODEL_TAB_GENERAL_LABEL)
         general_math_model_label.place(relx=0, rely=0)
 
         diffusion_coefficient_label = ctk.CTkLabel(
@@ -206,7 +221,9 @@ class MainWindowTabView(ctk.CTkTabview):
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
         )
-        diffusion_coefficient_label.configure(text="Diffusion Coefficient (D)")
+        diffusion_coefficient_label.configure(
+            text=MATH_MODEL_TAB_DIFFUSION_COEFFICIENT_LABEL
+        )
         diffusion_coefficient_label.place(relx=0, rely=0.05)
 
         diffusion_coefficient_entry = ctk.CTkEntry(
@@ -223,7 +240,7 @@ class MainWindowTabView(ctk.CTkTabview):
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
         )
-        measure_adhesion_label.configure(text="Measure of adhesion (G)")
+        measure_adhesion_label.configure(text=MATH_MODEL_TAB_ADHESION_MEASURE_LABEL)
         measure_adhesion_label.place(relx=0, rely=0.19)
 
         measure_adhesion_entry = ctk.CTkEntry(
@@ -240,7 +257,7 @@ class MainWindowTabView(ctk.CTkTabview):
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
         )
-        measure_apoptosis_label.configure(text="Measure of apoptosis (A)")
+        measure_apoptosis_label.configure(text=MATH_MODEL_TAB_APOPTOSIS_MEASURE_LABEL)
         measure_apoptosis_label.place(relx=0, rely=0.34)
 
         measure_apoptosis_entry = ctk.CTkEntry(
@@ -254,7 +271,7 @@ class MainWindowTabView(ctk.CTkTabview):
 
         set_model_button = GenericTabButton(
             math_model_tab,
-            "Set Model Values",
+            MATH_MODEL_TAB_SET_MODEL_BUTTON_LABEL,
             set_model_button_click,
             0,
             0.9,
@@ -266,7 +283,7 @@ class MainWindowTabView(ctk.CTkTabview):
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 28),
         )
-        general_start_label.configure(text="Start Panel")
+        general_start_label.configure(text=START_TAB_GENERAL_LABEL)
         general_start_label.place(relx=0, rely=0)
 
         is_area_set_label = ctk.CTkLabel(
@@ -277,6 +294,14 @@ class MainWindowTabView(ctk.CTkTabview):
         is_area_set_label.configure(text="Area Set: ")
         is_area_set_label.place(relx=0, rely=0.05)
 
+        is_area_set_value_label = ctk.CTkLabel(
+            start_panel_tab,
+            width=50,
+            font=("Helvetica", 16),
+        )
+        is_area_set_value_label.configure(text="Not Ready", fg_color="red")
+        is_area_set_value_label.place(relx=0.25, rely=0.05)
+
         is_mesh_generated_label = ctk.CTkLabel(
             start_panel_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
@@ -284,6 +309,14 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         is_mesh_generated_label.configure(text="Mesh Generated: ")
         is_mesh_generated_label.place(relx=0, rely=0.11)
+
+        is_mesh_generated_value_label = ctk.CTkLabel(
+            start_panel_tab,
+            width=50,
+            font=("Helvetica", 16),
+        )
+        is_mesh_generated_value_label.configure(text="Not Ready ", fg_color="red")
+        is_mesh_generated_value_label.place(relx=0.25, rely=0.11)
 
         is_model_set_label = ctk.CTkLabel(
             start_panel_tab,
@@ -293,9 +326,17 @@ class MainWindowTabView(ctk.CTkTabview):
         is_model_set_label.configure(text="Model Set: ")
         is_model_set_label.place(relx=0, rely=0.19)
 
+        is_model_set_value_label = ctk.CTkLabel(
+            start_panel_tab,
+            width=50,
+            font=("Helvetica", 16),
+        )
+        is_model_set_value_label.configure(text="Not Ready", fg_color="red")
+        is_model_set_value_label.place(relx=0.25, rely=0.19)
+
         start_simulation_button = GenericTabButton(
             start_panel_tab,
-            "Start",
+            START_TAB_START_BUTTON_LABEL,
             start_simulation_button_click,
             0,
             0.9,
