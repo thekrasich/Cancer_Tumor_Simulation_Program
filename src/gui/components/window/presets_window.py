@@ -1,7 +1,16 @@
+from tkinter import messagebox
 import customtkinter as ctk
 
-from common.constants import MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH
+from common.constants import (
+    MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
+    PRESETS_CREATE_BUTTON_LABEL,
+    PRESETS_GENERAL_LABEL,
+    PRESETS_POINTS_ON_BOUNDARY_LABEL,
+    PRESETS_SHAPE_LABEL,
+    PRESETS_VALUES,
+)
 from gui.components.tab_view.generic_tab_button import GenericSettingsButton
+from gui.helpers.area_helper import generate_preset_area
 from gui.helpers.window_geometry_helper import center_window_to_display
 
 
@@ -10,16 +19,24 @@ class PresetWindow(ctk.CTkToplevel):
         super().__init__()
 
         def generate_area_button_click() -> None:
-            pass
+            type_of_area = self.presets_combobox.get()
+            try:
+                number_of_points = int(self.presets_number_of_points.get())
 
-        self.title("Presets")
+                points, segments = generate_preset_area(type_of_area, number_of_points)
+
+                parent.plot_area.update_window(parent, points)
+            except ValueError:
+                messagebox.showerror("Error", "Input correct amount of points")
+
+        self.title(PRESETS_GENERAL_LABEL)
         self.geometry(center_window_to_display(self, 500, 400))
         self.resizable(False, False)
         self.attributes("-topmost", True)
 
         self.area_types = ctk.CTkLabel(
             self,
-            text="Shape: ",
+            text=PRESETS_SHAPE_LABEL,
             width=50,
             font=("Helvetica", 20),
         )
@@ -30,18 +47,18 @@ class PresetWindow(ctk.CTkToplevel):
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             height=50,
             corner_radius=20,
-            values=[],
+            values=PRESETS_VALUES,
             state="readonly",
             font=("Helvetica", 16),
             dropdown_font=("Helvetica", 16),
         )
-        self.presets_combobox.set("TEST")
+        self.presets_combobox.set(PRESETS_VALUES[0])
 
         self.presets_combobox.pack(anchor="nw", padx=10, pady=10)
 
         self.number_of_points_label = ctk.CTkLabel(
             self,
-            text="Initial number of points on boundary: ",
+            text=PRESETS_POINTS_ON_BOUNDARY_LABEL,
             width=50,
             font=("Helvetica", 20),
         )
@@ -57,7 +74,7 @@ class PresetWindow(ctk.CTkToplevel):
 
         self.generate_area = GenericSettingsButton(
             self,
-            "Create area",
+            PRESETS_CREATE_BUTTON_LABEL,
             generate_area_button_click,
             0.5,
             0.8,

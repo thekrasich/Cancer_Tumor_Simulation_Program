@@ -8,14 +8,16 @@ from gui.components.plotter.plot_area import AreaPlotArea
 from gui.components.tab_view.main_window_tab_view import MainWindowTabView
 from gui.helpers.window_geometry_helper import center_window_to_display
 from model.application_settings import ApplicationSettings
+from model.area_boundary import AreaBoundary
 
 
-class MainWindow(ctk.CTk):
+class MainWindow(ctk.CTk):    
     def __init__(self: ctk.CTk, parent, *args, **kwargs) -> None:
         super().__init__()
 
         ### Variables of class.
         self.application_settings: ApplicationSettings = ApplicationSettings()
+        self.area_boundary: AreaBoundary = AreaBoundary()
 
         ### Initial window settings.
         self.title(MAIN_WINDOW_TITLE)
@@ -31,10 +33,10 @@ class MainWindow(ctk.CTk):
         ctk.set_default_color_theme(self.application_settings.current_color_theme)
 
         ### Upper menu bar.
-        menu_bar: MainWindowMenuBar = MainWindowMenuBar(self)
+        self.menu_bar: MainWindowMenuBar = MainWindowMenuBar(self)
 
         ### Main control tabs.
-        tabs: MainWindowTabView = MainWindowTabView(self)
+        self.tabs: MainWindowTabView = MainWindowTabView(self)
 
         ### Mesh area.
-        plot_area: AreaPlotArea = AreaPlotArea(self)
+        self.plot_area: AreaPlotArea = AreaPlotArea(self)

@@ -76,3 +76,10 @@ MATH_MODEL_TAB_SET_MODEL_BUTTON_LABEL: str = "Set Model Values"
 
 START_TAB_GENERAL_LABEL: str = "Start Panel"
 START_TAB_START_BUTTON_LABEL: str = "Start"
+
+### PRESETS
+PRESETS_GENERAL_LABEL: str = "Presets"
+PRESETS_SHAPE_LABEL: str = "Shape: "
+PRESETS_VALUES: list[str] = ["Donut", "Circle"]
+PRESETS_POINTS_ON_BOUNDARY_LABEL: str = "Initial number of points on boundary: "
+PRESETS_CREATE_BUTTON_LABEL: str = "Create area"
