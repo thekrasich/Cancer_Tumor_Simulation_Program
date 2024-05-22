@@ -26,6 +26,13 @@ class PresetWindow(ctk.CTkToplevel):
                 points, segments = generate_preset_area(type_of_area, number_of_points)
 
                 parent.plot_area.update_window(parent, points)
+
+                parent.area_boundary.points = points
+                parent.area_boundary.segments = segments
+
+                if(len(parent.area_boundary.points) != 0):
+                    parent.tabs.update_area_ready_label()
+
             except ValueError:
                 messagebox.showerror("Error", "Input correct amount of points")
 
@@ -70,6 +77,8 @@ class PresetWindow(ctk.CTkToplevel):
             height=50,
             corner_radius=20,
         )
+        self.presets_number_of_points.insert(ctk.END, "50")
+
         self.presets_number_of_points.pack(anchor="nw", padx=10, pady=10)
 
         self.generate_area = GenericSettingsButton(

@@ -37,6 +37,13 @@ from gui.components.window.presets_window import PresetWindow
 
 
 class MainWindowTabView(ctk.CTkTabview):
+
+    def update_area_ready_label(self) -> None:
+        self.is_area_set_value_label.configure(text="Ready", fg_color="green")
+        
+    def update_mesh_ready_label(self) -> None:
+        print('test1')
+
     def __init__(self: ctk.CTkTabview, parent) -> None:
         super().__init__(
             parent,
@@ -253,6 +260,7 @@ class MainWindowTabView(ctk.CTkTabview):
             corner_radius=20,
             height=50,
         )
+        diffusion_coefficient_entry.insert(ctk.END, "1")
         diffusion_coefficient_entry.place(relx=0, rely=0.11)
 
         measure_adhesion_label = ctk.CTkLabel(
@@ -270,6 +278,7 @@ class MainWindowTabView(ctk.CTkTabview):
             corner_radius=20,
             height=50,
         )
+        measure_adhesion_entry.insert(ctk.END, "1")
         measure_adhesion_entry.place(relx=0, rely=0.25)
 
         measure_apoptosis_label = ctk.CTkLabel(
@@ -287,6 +296,7 @@ class MainWindowTabView(ctk.CTkTabview):
             corner_radius=20,
             height=50,
         )
+        measure_apoptosis_entry.insert(ctk.END, "1")
         measure_apoptosis_entry.place(relx=0, rely=0.39)
 
         set_model_button = GenericTabButton(
@@ -314,14 +324,14 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         is_area_set_label.place(relx=0, rely=0.05)
 
-        is_area_set_value_label = ctk.CTkLabel(
+        self.is_area_set_value_label = ctk.CTkLabel(
             start_panel_tab,
             width=50,
             font=("Helvetica", 16),
             text="Not Ready",
             fg_color="red",
         )
-        is_area_set_value_label.place(relx=0.25, rely=0.05)
+        self.is_area_set_value_label.place(relx=0.25, rely=0.05)
 
         is_mesh_generated_label = ctk.CTkLabel(
             start_panel_tab,

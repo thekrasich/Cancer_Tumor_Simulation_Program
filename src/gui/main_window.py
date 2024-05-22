@@ -9,15 +9,17 @@ from gui.components.tab_view.main_window_tab_view import MainWindowTabView
 from gui.helpers.window_geometry_helper import center_window_to_display
 from model.application_settings import ApplicationSettings
 from model.area_boundary import AreaBoundary
+from model.math_model import MathModel
 
 
-class MainWindow(ctk.CTk):    
+class MainWindow(ctk.CTk):
     def __init__(self: ctk.CTk, parent, *args, **kwargs) -> None:
         super().__init__()
 
         ### Variables of class.
         self.application_settings: ApplicationSettings = ApplicationSettings()
         self.area_boundary: AreaBoundary = AreaBoundary()
+        self.math_model: MathModel = MathModel()
 
         ### Initial window settings.
         self.title(MAIN_WINDOW_TITLE)
