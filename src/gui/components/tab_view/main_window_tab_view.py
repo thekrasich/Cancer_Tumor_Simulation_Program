@@ -39,6 +39,11 @@ from gui.components.tab_view.generic_tab_button import (
     WarningGenericTabButton,
 )
 from gui.components.window.presets_window import PresetWindow
+from gui.helpers.mesh_helper import (
+    create_triangulation_options_string,
+    triangulate_given_area,
+)
+from tkinter import messagebox
 
 
 class MainWindowTabView(ctk.CTkTabview):
@@ -89,8 +94,23 @@ class MainWindowTabView(ctk.CTkTabview):
             parent.plot_area.clear_area(parent)
 
         def mesh_area_button_click() -> None:
-            print("test")
-            pass
+            if len(parent.area_boundary.points) != 0:
+                triangulation_options = create_triangulation_options_string(
+                    self.mesh_type_combobox.get(), self.nodes_order_combobox.get()
+                )
+
+                parent.mesh_object = triangulate_given_area(
+                    parent.area_boundary.points,
+                    parent.area_boundary.segments,
+                    triangulation_options,
+                )
+                print("test")
+                print(parent.mesh_object)
+                parent.plot_area.update_area_triangulation(parent, parent.mesh_object)
+                
+            else:
+                ## TODO. move it
+                messagebox.showerror("Error!", "Set area first!")
 
         def start_simulation_button_click() -> None:
             print("test")
@@ -174,7 +194,7 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         mesh_type_label.place(relx=0, rely=0.05)
 
-        mesh_type_combobox = ctk.CTkComboBox(
+        self.mesh_type_combobox = ctk.CTkComboBox(
             mesh_tab,
             MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             height=50,
@@ -184,8 +204,8 @@ class MainWindowTabView(ctk.CTkTabview):
             font=("Helvetica", 16),
             dropdown_font=("Helvetica", 16),
         )
-        mesh_type_combobox.place(relx=0, rely=0.11)
-        mesh_type_combobox.set(MESH_TAB_MESHING_TYPES[0])
+        self.mesh_type_combobox.place(relx=0, rely=0.11)
+        self.mesh_type_combobox.set(MESH_TAB_MESHING_TYPES[0])
 
         nodes_order_label = ctk.CTkLabel(
             mesh_tab,
@@ -195,7 +215,7 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         nodes_order_label.place(relx=0, rely=0.19)
 
-        nodes_order_combobox = ctk.CTkComboBox(
+        self.nodes_order_combobox = ctk.CTkComboBox(
             mesh_tab,
             MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             height=50,
@@ -205,8 +225,8 @@ class MainWindowTabView(ctk.CTkTabview):
             font=("Helvetica", 16),
             dropdown_font=("Helvetica", 16),
         )
-        nodes_order_combobox.place(relx=0, rely=0.25)
-        nodes_order_combobox.set(MESH_TAB_NODES_ORDERS_TYPES[0])
+        self.nodes_order_combobox.place(relx=0, rely=0.25)
+        self.nodes_order_combobox.set(MESH_TAB_NODES_ORDERS_TYPES[0])
 
         ### TODO. Improve sliders
         minimum_angle_label = ctk.CTkLabel(
@@ -217,14 +237,14 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         minimum_angle_label.place(relx=0, rely=0.34)
 
-        minimum_angle_slider = ctk.CTkSlider(
+        self.minimum_angle_slider = ctk.CTkSlider(
             mesh_tab,
             from_=20,
             to=60,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             variable=self.minimum_angle,
         )
-        minimum_angle_slider.place(relx=0, rely=0.39)
+        self.minimum_angle_slider.place(relx=0, rely=0.39)
 
         maximum_area_label = ctk.CTkLabel(
             mesh_tab,
@@ -234,14 +254,14 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         maximum_area_label.place(relx=0, rely=0.43)
 
-        maximum_area_slider = ctk.CTkSlider(
+        self.maximum_area_slider = ctk.CTkSlider(
             mesh_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             from_=0,
             to=1,
             variable=self.maximum_area,
         )
-        maximum_area_slider.place(relx=0, rely=0.49)
+        self.maximum_area_slider.place(relx=0, rely=0.49)
 
         mesh_area_button = GenericTabButton(
             mesh_tab,

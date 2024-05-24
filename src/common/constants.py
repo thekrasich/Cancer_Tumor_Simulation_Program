@@ -60,7 +60,7 @@ AREA_TAB_CLEAR_AREA_BUTTON_TEXT: str = "Clear area"
 
 MESH_TAB_MESHING_OPTIONS_LABEL: str = "Meshing options"
 MESH_TAB_MESHING_TYPE_LABEL: str = "Mesh Type"
-MESH_TAB_NODES_ORDER_LABEL: str = "Mesh Type"
+MESH_TAB_NODES_ORDER_LABEL: str = "Nodes Order"
 MESH_TAB_MINIMUM_ANGLE_LABEL: str = "Minimum anlge ( 20 - 60 )"
 MESH_TAB_MAXIMUM_AREA_LABEL: str = "Maximum area of element ( 0 - 1 )"
 MESH_TAB_GENERATE_MESH_BUTTON_LABEL: str = "Generate mesh"

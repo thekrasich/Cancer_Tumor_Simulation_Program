@@ -26,7 +26,7 @@ class PresetWindow(ctk.CTkToplevel):
 
                 points, segments = generate_preset_area(type_of_area, number_of_points)
 
-                parent.plot_area.update_window(parent, points)
+                parent.plot_area.update_area_plot(parent, points)
 
                 parent.area_boundary.points = points
                 parent.area_boundary.segments = segments

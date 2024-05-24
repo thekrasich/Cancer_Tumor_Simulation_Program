@@ -21,6 +21,9 @@ class MainWindow(ctk.CTk):
         self.area_boundary: AreaBoundary = AreaBoundary()
         self.math_model: MathModel = MathModel()
 
+        ## TODO. Create class for this
+        self.mesh_object = None
+
         ### Initial window settings.
         self.title(MAIN_WINDOW_TITLE)
         self.geometry(
