@@ -155,6 +155,9 @@ class MainWindowTabView(ctk.CTkTabview):
         )
 
         ### Mesh tab.
+        self.minimum_angle = ctk.IntVar(self, 20)
+        self.maximum_area = ctk.IntVar(self, 0)
+
         general_mesh_label = ctk.CTkLabel(
             mesh_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
@@ -215,7 +218,11 @@ class MainWindowTabView(ctk.CTkTabview):
         minimum_angle_label.place(relx=0, rely=0.34)
 
         minimum_angle_slider = ctk.CTkSlider(
-            mesh_tab, from_=20, to=60, width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH
+            mesh_tab,
+            from_=20,
+            to=60,
+            width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
+            variable=self.minimum_angle,
         )
         minimum_angle_slider.place(relx=0, rely=0.39)
 
@@ -228,7 +235,11 @@ class MainWindowTabView(ctk.CTkTabview):
         maximum_area_label.place(relx=0, rely=0.43)
 
         maximum_area_slider = ctk.CTkSlider(
-            mesh_tab, from_=20, to=60, width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH
+            mesh_tab,
+            width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
+            from_=0,
+            to=1,
+            variable=self.maximum_area,
         )
         maximum_area_slider.place(relx=0, rely=0.49)
 
