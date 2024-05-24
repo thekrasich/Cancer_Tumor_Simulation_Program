@@ -5,6 +5,7 @@ from common.constants import (
     MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
     PRESETS_CREATE_BUTTON_LABEL,
     PRESETS_GENERAL_LABEL,
+    PRESETS_GENERATE_ERROR_MESSAGE,
     PRESETS_POINTS_ON_BOUNDARY_LABEL,
     PRESETS_SHAPE_LABEL,
     PRESETS_VALUES,
@@ -30,11 +31,13 @@ class PresetWindow(ctk.CTkToplevel):
                 parent.area_boundary.points = points
                 parent.area_boundary.segments = segments
 
-                if(len(parent.area_boundary.points) != 0):
+                if len(parent.area_boundary.points) != 0:
                     parent.tabs.update_area_ready_label()
 
+                self.destroy()
+
             except ValueError:
-                messagebox.showerror("Error", "Input correct amount of points")
+                messagebox.showerror(PRESETS_GENERATE_ERROR_MESSAGE)
 
         self.title(PRESETS_GENERAL_LABEL)
         self.geometry(center_window_to_display(self, 500, 400))

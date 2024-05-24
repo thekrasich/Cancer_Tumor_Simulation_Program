@@ -76,6 +76,12 @@ MATH_MODEL_TAB_SET_MODEL_BUTTON_LABEL: str = "Set Model Values"
 
 START_TAB_GENERAL_LABEL: str = "Start Panel"
 START_TAB_START_BUTTON_LABEL: str = "Start"
+START_TAB_AREA_SET_LABEL: str = "Area Set: "
+START_TAB_MESH_SET_LABEL: str = "Mesh Generated: "
+START_TAB_MODEL_SET_LABEL: str = "Mesh Generated: "
+
+START_TAB_DEFAULT_NOT_READY: str = "Not Ready"
+START_TAB_DEFAUT_VALUE: str = "Set by Default"
 
 ### PRESETS
 PRESETS_GENERAL_LABEL: str = "Presets"
@@ -83,3 +89,4 @@ PRESETS_SHAPE_LABEL: str = "Shape: "
 PRESETS_VALUES: list[str] = ["Donut", "Circle"]
 PRESETS_POINTS_ON_BOUNDARY_LABEL: str = "Initial number of points on boundary: "
 PRESETS_CREATE_BUTTON_LABEL: str = "Create area"
+PRESETS_GENERATE_ERROR_MESSAGE: str = "Error", "Input correct amount of points"

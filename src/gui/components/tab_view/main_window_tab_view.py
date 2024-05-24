@@ -26,7 +26,12 @@ from common.constants import (
     MESH_TAB_MINIMUM_ANGLE_LABEL,
     MESH_TAB_NODES_ORDER_LABEL,
     MESH_TAB_NODES_ORDERS_TYPES,
+    START_TAB_AREA_SET_LABEL,
+    START_TAB_DEFAULT_NOT_READY,
+    START_TAB_DEFAUT_VALUE,
     START_TAB_GENERAL_LABEL,
+    START_TAB_MESH_SET_LABEL,
+    START_TAB_MODEL_SET_LABEL,
     START_TAB_START_BUTTON_LABEL,
 )
 from gui.components.tab_view.generic_tab_button import (
@@ -40,9 +45,9 @@ class MainWindowTabView(ctk.CTkTabview):
 
     def update_area_ready_label(self) -> None:
         self.is_area_set_value_label.configure(text="Ready", fg_color="green")
-        
+
     def update_mesh_ready_label(self) -> None:
-        print('test1')
+        print("test1")
 
     def __init__(self: ctk.CTkTabview, parent) -> None:
         super().__init__(
@@ -81,8 +86,7 @@ class MainWindowTabView(ctk.CTkTabview):
             pass
 
         def clear_area_button_click() -> None:
-            print("test")
-            pass
+            parent.plot_area.clear_area(parent)
 
         def mesh_area_button_click() -> None:
             print("test")
@@ -320,7 +324,7 @@ class MainWindowTabView(ctk.CTkTabview):
             start_panel_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
-            text="Area Set: ",
+            text=START_TAB_AREA_SET_LABEL,
         )
         is_area_set_label.place(relx=0, rely=0.05)
 
@@ -328,7 +332,7 @@ class MainWindowTabView(ctk.CTkTabview):
             start_panel_tab,
             width=50,
             font=("Helvetica", 16),
-            text="Not Ready",
+            text=START_TAB_DEFAULT_NOT_READY,
             fg_color="red",
         )
         self.is_area_set_value_label.place(relx=0.25, rely=0.05)
@@ -337,7 +341,7 @@ class MainWindowTabView(ctk.CTkTabview):
             start_panel_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
-            text="Mesh Generated: ",
+            text=START_TAB_MESH_SET_LABEL,
         )
         is_mesh_generated_label.place(relx=0, rely=0.11)
 
@@ -345,7 +349,7 @@ class MainWindowTabView(ctk.CTkTabview):
             start_panel_tab,
             width=50,
             font=("Helvetica", 16),
-            text="Not Ready ",
+            text=START_TAB_DEFAULT_NOT_READY,
             fg_color="red",
         )
         is_mesh_generated_value_label.place(relx=0.25, rely=0.11)
@@ -354,7 +358,7 @@ class MainWindowTabView(ctk.CTkTabview):
             start_panel_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
-            text="Model Set: ",
+            text=START_TAB_MODEL_SET_LABEL,
         )
         is_model_set_label.place(relx=0, rely=0.19)
 
@@ -362,8 +366,8 @@ class MainWindowTabView(ctk.CTkTabview):
             start_panel_tab,
             width=50,
             font=("Helvetica", 16),
-            text="Not Ready",
-            fg_color="red",
+            text=START_TAB_DEFAUT_VALUE,
+            fg_color="yellow",
         )
         is_model_set_value_label.place(relx=0.25, rely=0.19)
 
