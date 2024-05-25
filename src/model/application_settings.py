@@ -1,6 +1,7 @@
 from common.constants import MAIN_WINDOW_INITIAL_HEIGHT, MAIN_WINDOW_INITIAL_WIDTH
 
 
+## TODO. Improve class
 class ApplicationSettings(object):
     def __init__(self) -> None:
         self.current_width: int = MAIN_WINDOW_INITIAL_WIDTH

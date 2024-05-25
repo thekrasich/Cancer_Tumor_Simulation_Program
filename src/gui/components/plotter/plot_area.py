@@ -114,13 +114,13 @@ class AreaPlotArea(FigureCanvasTkAgg):
         ax.axis("on")
         plt.grid(True)
 
-       
-        
         canvas = FigureCanvasTkAgg(fig, master=parent)
         canvas.draw()
         canvas.get_tk_widget().place(relx=PLOTTER_X_PLACEMENT, rely=PLOTTER_Y_PLACEMENT)
 
         parent.update()
+
+        parent.tabs.update_mesh_ready_label()
 
     def clear_area(self, parent):
         fig, ax = plt.subplots()

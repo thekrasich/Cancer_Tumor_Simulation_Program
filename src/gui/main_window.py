@@ -10,6 +10,8 @@ from gui.helpers.window_geometry_helper import center_window_to_display
 from model.application_settings import ApplicationSettings
 from model.area_boundary import AreaBoundary
 from model.math_model import MathModel
+from model.mesh_data import MeshData
+from model.readiness_flags import ReadinessFlags
 
 
 class MainWindow(ctk.CTk):
@@ -20,9 +22,8 @@ class MainWindow(ctk.CTk):
         self.application_settings: ApplicationSettings = ApplicationSettings()
         self.area_boundary: AreaBoundary = AreaBoundary()
         self.math_model: MathModel = MathModel()
-
-        ## TODO. Create class for this
-        self.mesh_object = None
+        self.mesh_object: MeshData = MeshData
+        self.simulation_readiness_flags: ReadinessFlags = ReadinessFlags()
 
         ### Initial window settings.
         self.title(MAIN_WINDOW_TITLE)

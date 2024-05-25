@@ -3,6 +3,8 @@ from common.constants import (
     AREA_TAB_BOUNDARY_CONDITION_BUTTON_TEXT,
     AREA_TAB_CLEAR_AREA_BUTTON_TEXT,
     AREA_TAB_FILE_BUTTON_TEXT,
+    AREA_TAB_INPUT_FORMULA_BUTTON_TEXT,
+    AREA_TAB_INPUT_FORMULA_BUTTON_TITLE,
     AREA_TAB_MAIN_TITLE,
     AREA_TAB_BOUNDARY_CONDITION_LABEL_TEXT,
     AREA_TAB_MANUAL_INPUT_BUTTON_TEXT,
@@ -28,6 +30,7 @@ from common.constants import (
     MESH_TAB_NODES_ORDERS_TYPES,
     START_TAB_AREA_SET_LABEL,
     START_TAB_DEFAULT_NOT_READY,
+    START_TAB_DEFAULT_READY,
     START_TAB_DEFAUT_VALUE,
     START_TAB_GENERAL_LABEL,
     START_TAB_MESH_SET_LABEL,
@@ -49,10 +52,14 @@ from tkinter import messagebox
 class MainWindowTabView(ctk.CTkTabview):
 
     def update_area_ready_label(self) -> None:
-        self.is_area_set_value_label.configure(text="Ready", fg_color="green")
+        self.is_area_set_value_label.configure(
+            text=START_TAB_DEFAULT_READY, fg_color="green"
+        )
 
     def update_mesh_ready_label(self) -> None:
-        print("test1")
+        self.is_mesh_generated_value_label.configure(
+            text=START_TAB_DEFAULT_READY, fg_color="green"
+        )
 
     def __init__(self: ctk.CTkTabview, parent) -> None:
         super().__init__(
@@ -77,9 +84,9 @@ class MainWindowTabView(ctk.CTkTabview):
 
         def formula_button_click() -> None:
             dialog = ctk.CTkInputDialog(
-                text="Type in a formula:", title="Formula Input"
+                text=AREA_TAB_INPUT_FORMULA_BUTTON_TEXT,
+                title=AREA_TAB_INPUT_FORMULA_BUTTON_TITLE,
             )
-            print("Formula:", dialog.get_input())
             pass
 
         def manual_input_button_click() -> None:
@@ -96,7 +103,10 @@ class MainWindowTabView(ctk.CTkTabview):
         def mesh_area_button_click() -> None:
             if len(parent.area_boundary.points) != 0:
                 triangulation_options = create_triangulation_options_string(
-                    self.mesh_type_combobox.get(), self.nodes_order_combobox.get()
+                    self.mesh_type_combobox.get(),
+                    self.nodes_order_combobox.get(),
+                    self.minimum_angle.get(),
+                    self.maximum_area.get(),
                 )
 
                 parent.mesh_object = triangulate_given_area(
@@ -104,16 +114,17 @@ class MainWindowTabView(ctk.CTkTabview):
                     parent.area_boundary.segments,
                     triangulation_options,
                 )
-                print("test")
-                print(parent.mesh_object)
+
                 parent.plot_area.update_area_triangulation(parent, parent.mesh_object)
-                
+
+                parent.tabs.update_area_ready_label()
+
             else:
                 ## TODO. move it
                 messagebox.showerror("Error!", "Set area first!")
 
         def start_simulation_button_click() -> None:
-            print("test")
+            
             pass
 
         def set_model_button_click() -> None:
@@ -176,7 +187,7 @@ class MainWindowTabView(ctk.CTkTabview):
 
         ### Mesh tab.
         self.minimum_angle = ctk.IntVar(self, 20)
-        self.maximum_area = ctk.IntVar(self, 0)
+        self.maximum_area = ctk.IntVar(self, 1)
 
         general_mesh_label = ctk.CTkLabel(
             mesh_tab,
@@ -240,7 +251,7 @@ class MainWindowTabView(ctk.CTkTabview):
         self.minimum_angle_slider = ctk.CTkSlider(
             mesh_tab,
             from_=20,
-            to=60,
+            to=30,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             variable=self.minimum_angle,
         )
@@ -257,8 +268,8 @@ class MainWindowTabView(ctk.CTkTabview):
         self.maximum_area_slider = ctk.CTkSlider(
             mesh_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
-            from_=0,
-            to=1,
+            from_=1,
+            to=90,
             variable=self.maximum_area,
         )
         self.maximum_area_slider.place(relx=0, rely=0.49)
@@ -368,22 +379,22 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         self.is_area_set_value_label.place(relx=0.25, rely=0.05)
 
-        is_mesh_generated_label = ctk.CTkLabel(
+        self.is_mesh_generated_label = ctk.CTkLabel(
             start_panel_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
             text=START_TAB_MESH_SET_LABEL,
         )
-        is_mesh_generated_label.place(relx=0, rely=0.11)
+        self.is_mesh_generated_label.place(relx=0, rely=0.11)
 
-        is_mesh_generated_value_label = ctk.CTkLabel(
+        self.is_mesh_generated_value_label = ctk.CTkLabel(
             start_panel_tab,
-            width=50,
+            width=60,
             font=("Helvetica", 16),
             text=START_TAB_DEFAULT_NOT_READY,
             fg_color="red",
         )
-        is_mesh_generated_value_label.place(relx=0.25, rely=0.11)
+        self.is_mesh_generated_value_label.place(relx=0.25, rely=0.11)
 
         is_model_set_label = ctk.CTkLabel(
             start_panel_tab,
@@ -395,7 +406,7 @@ class MainWindowTabView(ctk.CTkTabview):
 
         is_model_set_value_label = ctk.CTkLabel(
             start_panel_tab,
-            width=50,
+            width=60,
             font=("Helvetica", 16),
             text=START_TAB_DEFAUT_VALUE,
             fg_color="yellow",
