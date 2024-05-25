@@ -22,7 +22,7 @@ class MainWindow(ctk.CTk):
         self.application_settings: ApplicationSettings = ApplicationSettings()
         self.area_boundary: AreaBoundary = AreaBoundary()
         self.math_model: MathModel = MathModel()
-        self.mesh_object: MeshData = MeshData
+        self.mesh_object: MeshData = MeshData()
         self.simulation_readiness_flags: ReadinessFlags = ReadinessFlags()
 
         ### Initial window settings.

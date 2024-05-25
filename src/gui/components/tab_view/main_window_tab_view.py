@@ -48,6 +48,10 @@ from gui.helpers.mesh_helper import (
 )
 from tkinter import messagebox
 
+from model.enums import ValidationStatuses
+from simulation_solver.checker import check_math_model_validity
+from simulation_solver.main_solver import start_simulation
+
 
 class MainWindowTabView(ctk.CTkTabview):
 
@@ -124,8 +128,21 @@ class MainWindowTabView(ctk.CTkTabview):
                 messagebox.showerror("Error!", "Set area first!")
 
         def start_simulation_button_click() -> None:
-            
-            pass
+            validation_status: ValidationStatuses = check_math_model_validity(
+                parent.math_model.diffusion_coefficient,
+                parent.math_model.adhesion_measure,
+                parent.math_model.apoptosis_measure,
+            )
+
+            if validation_status == ValidationStatuses.OK:
+                start_simulation()
+            ## TODO. Move errors to constants
+            elif validation_status == ValidationStatuses.ADHESION_COEFFICIENT_ERROR:
+                messagebox.showerror("Error!", "Set adhesion coefficient correctly")
+            elif validation_status == ValidationStatuses.APTOSIS_COEFFICIENT_ERROR:
+                messagebox.showerror("Error!", "Set aptosis coefficient correctly")
+            elif validation_status == ValidationStatuses.DIFFUSION_COEFFICIENT_ERROR:
+                messagebox.showerror("Error!", "Set diffusion coefficient correctly")
 
         def set_model_button_click() -> None:
             print("test")

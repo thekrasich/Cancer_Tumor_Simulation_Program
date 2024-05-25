@@ -2,7 +2,9 @@ import numpy as np
 
 
 class MeshData:
-    def __init__(self, vertices, vertex_markers, triangles):
+    def __init__(
+        self, vertices=np.array([]), vertex_markers=np.array([]), triangles=np.array([])
+    ):
         self.vertices = np.array(vertices)
         self.vertex_markers = np.array(vertex_markers)
         self.triangles = np.array(triangles)
