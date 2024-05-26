@@ -1,3 +1,4 @@
+import os
 import customtkinter as ctk
 from common.constants import (
     AREA_TAB_BOUNDARY_CONDITION_BUTTON_TEXT,
@@ -41,7 +42,9 @@ from gui.components.tab_view.generic_tab_button import (
     GenericTabButton,
     WarningGenericTabButton,
 )
+from gui.components.window.boundary_conditions_window import BoundaryConditionsWindow
 from gui.components.window.presets_window import PresetWindow
+from gui.helpers.file_helper import process_file
 from gui.helpers.mesh_helper import (
     create_triangulation_options_string,
     triangulate_given_area,
@@ -73,6 +76,7 @@ class MainWindowTabView(ctk.CTkTabview):
             20,
         )
         self.presets_window = None
+        self.boundary_condinitons_configuration_window = None
         self.pack()
 
         def presets_button_click() -> None:
@@ -80,26 +84,38 @@ class MainWindowTabView(ctk.CTkTabview):
                 self.presets_window = PresetWindow(parent)
             else:
                 self.presets_window.focus()
-            pass
 
         def file_button_click() -> None:
-            file_name = ctk.filedialog.askopenfilename()
-            print(file_name)
+            file_path = ctk.filedialog.askopenfilename(filetypes=[("Images", ".jpg")])
+            _, file_extension = os.path.splitext(file_path)
+
+            points, segments = process_file(file_path, file_extension)
+
+            parent.plot_area.update_area_plot(parent, points)
+
+            parent.area_boundary.points = points
+            parent.area_boundary.segments = segments
+
+            if len(parent.area_boundary.points) != 0:
+                parent.tabs.update_area_ready_label()
 
         def formula_button_click() -> None:
             dialog = ctk.CTkInputDialog(
                 text=AREA_TAB_INPUT_FORMULA_BUTTON_TEXT,
                 title=AREA_TAB_INPUT_FORMULA_BUTTON_TITLE,
             )
-            pass
 
         def manual_input_button_click() -> None:
-            print("test")
-            pass
+            messagebox.showinfo("IN DEVELOPMENT", "CURRENTLY WIP")
 
         def configure_boundary_conditions_button_click() -> None:
-            print("test")
-            pass
+            if (
+                self.boundary_condinitons_configuration_window is None
+                or not self.boundary_condinitons_configuration_window.winfo_exists()
+            ):
+                self.presets_window = BoundaryConditionsWindow(parent)
+            else:
+                self.presets_window.focus()
 
         def clear_area_button_click() -> None:
             parent.plot_area.clear_area(parent)
