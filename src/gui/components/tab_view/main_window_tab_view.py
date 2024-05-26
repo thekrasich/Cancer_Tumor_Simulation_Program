@@ -43,6 +43,7 @@ from gui.components.tab_view.generic_tab_button import (
     WarningGenericTabButton,
 )
 from gui.components.window.boundary_conditions_window import BoundaryConditionsWindow
+from gui.components.window.manual_input_window import ManualInputWindow
 from gui.components.window.presets_window import PresetWindow
 from gui.helpers.file_helper import process_file
 from gui.helpers.mesh_helper import (
@@ -77,6 +78,8 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         self.presets_window = None
         self.boundary_condinitons_configuration_window = None
+        self.manual_input_window = None
+
         self.pack()
 
         def presets_button_click() -> None:
@@ -106,7 +109,13 @@ class MainWindowTabView(ctk.CTkTabview):
             )
 
         def manual_input_button_click() -> None:
-            messagebox.showinfo("IN DEVELOPMENT", "CURRENTLY WIP")
+            if (
+                self.manual_input_window is None
+                or not self.manual_input_window.winfo_exists()
+            ):
+                self.manual_input_window = ManualInputWindow(parent)
+            else:
+                self.manual_input_window.focus()
 
         def configure_boundary_conditions_button_click() -> None:
             if (

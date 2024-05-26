@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 ## TODO. Add abillity to change down_size and scale
-def read_image_file(image_path: str, down_size_factor=1, scale=1):
+def read_image_file(image_path: str, down_size_factor=6, scale=3):
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
     _, thresholded = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY_INV)
