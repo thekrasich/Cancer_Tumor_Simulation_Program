@@ -99,3 +99,7 @@ def assemble_rhs(Qe, triangle, globalB):
     for i in range(3):
         globalB[triangle[i]] += Qe[i]
     return globalB
+
+
+def compute_preassure(A, G, x, d, k=1):
+    return k - A * G * ((x * x) / (2 * d))
