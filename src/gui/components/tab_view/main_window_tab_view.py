@@ -160,7 +160,7 @@ class MainWindowTabView(ctk.CTkTabview):
             )
 
             if validation_status == ValidationStatuses.OK:
-                start_simulation()
+                start_simulation(parent.mesh_object, parent.area_boundary.segments)
             ## TODO. Move errors to constants
             elif validation_status == ValidationStatuses.ADHESION_COEFFICIENT_ERROR:
                 messagebox.showerror("Error!", "Set adhesion coefficient correctly")
