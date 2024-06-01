@@ -49,11 +49,11 @@ def start_simulation(triangulation_results, segments, math_model):
             assembled_system[i, i] = 1e21
             rhs[i] = 1e21
 
-    solution = np.linalg.solve(assembled_system, rhs)
+    concentration_solution = np.linalg.solve(assembled_system, rhs)
 
     X_concentration = triangulation_results["vertices"][:, 0]
     Y_concentration = triangulation_results["vertices"][:, 1]
-    Z_concentration = solution
+    Z_concentration = concentration_solution
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
@@ -109,8 +109,29 @@ def start_simulation(triangulation_results, segments, math_model):
             x = vertices[i, 0]
             k = Z_concentration[i]
             pressure_value = compute_pressure(1, 1, Z_concentration[i], 1, x)
-            print(pressure_value)
             assembled_system[i, i] = 1e21
             rhs[i] = 1e21 * pressure_value
 
+    pressure_solution = np.linalg.solve(assembled_system, rhs)
+    
+    X_concentration = triangulation_results["vertices"][:, 0]
+    Y_concentration = triangulation_results["vertices"][:, 1]
+    Z_concentration = pressure_solution
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection="3d")
+    surf = ax.plot_trisurf(
+        X_concentration,
+        Y_concentration,
+        Z_concentration,
+        cmap="viridis",
+        edgecolor="none",
+    )
+    fig.colorbar(surf, shrink=0.5, aspect=5)
+    ax.set_title("Pressure")
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.set_zlabel("u(x, y)")
+    plt.show()
+    
     return X_concentration, Y_concentration, Z_concentration
