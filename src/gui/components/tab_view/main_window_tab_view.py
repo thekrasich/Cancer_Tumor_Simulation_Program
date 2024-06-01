@@ -1,6 +1,8 @@
 import os
 import customtkinter as ctk
 from common.constants import (
+    ADHESION_ERROR_MESSAGE,
+    APOPTOSIS_ERROR_MESSAGE,
     AREA_TAB_BOUNDARY_CONDITION_BUTTON_TEXT,
     AREA_TAB_CLEAR_AREA_BUTTON_TEXT,
     AREA_TAB_FILE_BUTTON_TEXT,
@@ -11,6 +13,8 @@ from common.constants import (
     AREA_TAB_MANUAL_INPUT_BUTTON_TEXT,
     AREA_TAB_PRESETS_BUTTON_TEXT,
     AREA_TAB_WRITE_FORMULA_BUTTON_TEXT,
+    DEFAULT_ERROR_MESSAGE,
+    DIFFUSION_ERROR_MESSAGE,
     MAIN_WINDOW_TAB_AREA_TITLE,
     MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
     MAIN_WINDOW_TAB_MATH_MODEL_TITLE,
@@ -29,6 +33,7 @@ from common.constants import (
     MESH_TAB_MINIMUM_ANGLE_LABEL,
     MESH_TAB_NODES_ORDER_LABEL,
     MESH_TAB_NODES_ORDERS_TYPES,
+    SET_AREA_ERROR_MESSAGE,
     START_TAB_AREA_SET_LABEL,
     START_TAB_DEFAULT_NOT_READY,
     START_TAB_DEFAULT_READY,
@@ -154,8 +159,7 @@ class MainWindowTabView(ctk.CTkTabview):
                 parent.tabs.update_area_ready_label()
 
             else:
-                ## TODO. move it
-                messagebox.showerror("Error!", "Set area first!")
+                messagebox.showerror(DEFAULT_ERROR_MESSAGE, SET_AREA_ERROR_MESSAGE)
 
         def start_simulation_button_click() -> None:
             validation_status: ValidationStatuses = check_math_model_validity(
@@ -168,13 +172,13 @@ class MainWindowTabView(ctk.CTkTabview):
                 start_simulation(
                     parent.mesh_object, parent.area_boundary.segments, parent.math_model
                 )
-            ## TODO. Move errors to constants
+
             elif validation_status == ValidationStatuses.ADHESION_COEFFICIENT_ERROR:
-                messagebox.showerror("Error!", "Set adhesion coefficient correctly")
+                messagebox.showerror(DEFAULT_ERROR_MESSAGE, ADHESION_ERROR_MESSAGE)
             elif validation_status == ValidationStatuses.APTOSIS_COEFFICIENT_ERROR:
-                messagebox.showerror("Error!", "Set aptosis coefficient correctly")
+                messagebox.showerror(DEFAULT_ERROR_MESSAGE, APOPTOSIS_ERROR_MESSAGE)
             elif validation_status == ValidationStatuses.DIFFUSION_COEFFICIENT_ERROR:
-                messagebox.showerror("Error!", "Set diffusion coefficient correctly")
+                messagebox.showerror(DEFAULT_ERROR_MESSAGE, DIFFUSION_ERROR_MESSAGE)
 
         def set_model_button_click() -> None:
             try:
@@ -301,7 +305,6 @@ class MainWindowTabView(ctk.CTkTabview):
         self.nodes_order_combobox.place(relx=0, rely=0.25)
         self.nodes_order_combobox.set(MESH_TAB_NODES_ORDERS_TYPES[0])
 
-        ### TODO. Improve sliders
         minimum_angle_label = ctk.CTkLabel(
             mesh_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,

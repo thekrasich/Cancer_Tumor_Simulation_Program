@@ -93,3 +93,9 @@ PRESETS_VALUES: list[str] = ["Donut", "Circle"]
 PRESETS_POINTS_ON_BOUNDARY_LABEL: str = "Initial number of points on boundary: "
 PRESETS_CREATE_BUTTON_LABEL: str = "Create area"
 PRESETS_GENERATE_ERROR_MESSAGE: str = "Error", "Input correct amount of points"
+
+DEFAULT_ERROR_MESSAGE: str = "ERROR"
+ADHESION_ERROR_MESSAGE: str = "Set adhesion coefficient correctly"
+DIFFUSION_ERROR_MESSAGE: str = "Set diffusion coefficient correctly"
+APOPTOSIS_ERROR_MESSAGE: str = "Set aptosis coefficient correctly"
+SET_AREA_ERROR_MESSAGE: str = "Set area first!"
