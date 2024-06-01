@@ -101,5 +101,5 @@ def assemble_rhs(Qe, triangle, globalB):
     return globalB
 
 
-def compute_preassure(A, G, x, d, k=1):
-    return k - A * G * ((x * x) / (2 * d))
+def compute_pressure(A, G, c, chi, x, d=2, k=1):
+    return k + (G - chi) * c - G - A * G * ((x * x) / (2 * d))

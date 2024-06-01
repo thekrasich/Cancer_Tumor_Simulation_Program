@@ -5,6 +5,7 @@ from simulation_solver.math_helper import (
     assemble_rhs,
     compute_ke,
     compute_qe,
+    compute_pressure,
 )
 
 
@@ -52,14 +53,14 @@ def start_simulation(triangulation_results, segments, math_model):
 
     X_concentration = triangulation_results["vertices"][:, 0]
     Y_concentration = triangulation_results["vertices"][:, 1]
-    Z_conentration = solution
+    Z_concentration = solution
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
     surf = ax.plot_trisurf(
         X_concentration,
         Y_concentration,
-        Z_conentration,
+        Z_concentration,
         cmap="viridis",
         edgecolor="none",
     )
@@ -71,7 +72,6 @@ def start_simulation(triangulation_results, segments, math_model):
     plt.show()
 
     ## pressure
-
     vertices = triangulation_results["vertices"]
     triangles = triangulation_results["triangles"]
 
@@ -89,31 +89,28 @@ def start_simulation(triangulation_results, segments, math_model):
 
     assembled_system = np.zeros((len(vertices), len(vertices)))
     rhs = np.zeros(len(vertices))
-    print(len(triangles))
-    print(len(Z_conentration))
 
     for i in range(len(triangles)):
         ke = np.array(
             compute_ke(
                 triangle_vertices[i],
-                a_11=1,
-                a_22=1,
+                a_11=math_model.diffusion_coefficient,
+                a_22=math_model.diffusion_coefficient,
             )
         )
 
-        ## Question about math model WHERE TO SET PRESSURE
         qe = compute_qe(triangle_vertices[i], fe=[1, 1, 1])
 
         assembled_system = assemble_global_matrix(assembled_system, ke, triangles[i])
         rhs = assemble_rhs(qe, triangles[i], rhs)
-        # print(Z_conentration[i])
 
     for i in range(len(vertices)):
-        if i in boundary_points or i in boundary_points:
-            # assembled_system[i, :] = 0
+        if i in boundary_points:
+            x = vertices[i, 0]
+            k = Z_concentration[i]
+            pressure_value = compute_pressure(1, 1, Z_concentration[i], 1, x)
+            print(pressure_value)
             assembled_system[i, i] = 1e21
-            rhs[i] = 1e21
+            rhs[i] = 1e21 * pressure_value
 
-    solution = np.linalg.solve(assembled_system, rhs)
-
-    return X_concentration, Y_concentration, Z_conentration
+    return X_concentration, Y_concentration, Z_concentration
