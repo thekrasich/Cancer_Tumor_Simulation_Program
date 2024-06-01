@@ -68,7 +68,7 @@ MESH_TAB_MAXIMUM_AREA_LABEL: str = "Maximum area of element ( 0 - 1 )"
 MESH_TAB_GENERATE_MESH_BUTTON_LABEL: str = "Generate mesh"
 
 MESH_TAB_MESHING_TYPES: list[str] = ["Triangular"]
-MESH_TAB_NODES_ORDERS_TYPES: list[str] = ["Linear"]
+MESH_TAB_NODES_ORDERS_TYPES: list[str] = ["Linear", "Quadratic"]
 
 MATH_MODEL_TAB_GENERAL_LABEL: str = "Mathematical model settings"
 MATH_MODEL_TAB_DIFFUSION_COEFFICIENT_LABEL: str = "Diffusion Coefficient (D)"

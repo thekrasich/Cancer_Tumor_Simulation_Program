@@ -148,10 +148,13 @@ class MainWindowTabView(ctk.CTkTabview):
                     self.maximum_area.get(),
                 )
 
+                
+                ## TODO. If mesh not triangles why its called triangulate?
                 parent.mesh_object = triangulate_given_area(
                     parent.area_boundary.points,
                     parent.area_boundary.segments,
                     triangulation_options,
+                    self.nodes_order_combobox.get(),
                 )
 
                 parent.plot_area.update_area_triangulation(parent, parent.mesh_object)
