@@ -54,21 +54,21 @@ def start_simulation(triangulation_results, segments, math_model):
     Y_concentration = triangulation_results["vertices"][:, 1]
     Z_conentration = solution
 
-    # fig = plt.figure()
-    # ax = fig.add_subplot(111, projection="3d")
-    # surf = ax.plot_trisurf(
-    #     X_concentration,
-    #     Y_concentration,
-    #     Z_conentration,
-    #     cmap="viridis",
-    #     edgecolor="none",
-    # )
-    # fig.colorbar(surf, shrink=0.5, aspect=5)
-    # ax.set_title("Concentration")
-    # ax.set_xlabel("X")
-    # ax.set_ylabel("Y")
-    # ax.set_zlabel("u(x, y)")
-    # plt.show()
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection="3d")
+    surf = ax.plot_trisurf(
+        X_concentration,
+        Y_concentration,
+        Z_conentration,
+        cmap="viridis",
+        edgecolor="none",
+    )
+    fig.colorbar(surf, shrink=0.5, aspect=5)
+    ax.set_title("Concentration")
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.set_zlabel("u(x, y)")
+    plt.show()
 
     ## pressure
 

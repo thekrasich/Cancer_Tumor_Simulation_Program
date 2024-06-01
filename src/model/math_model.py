@@ -38,3 +38,10 @@ class MathModel:
         if value < 0:
             raise ValueError("Apoptosis measure must be non-negative.")
         self._apoptosis_measure = value
+
+    def __str__(self) -> str:
+        return (
+            f"MathModel(diffusion_coefficient={self.diffusion_coefficient}, "
+            f"adhesion_measure={self.adhesion_measure}, "
+            f"apoptosis_measure={self.apoptosis_measure})"
+        )

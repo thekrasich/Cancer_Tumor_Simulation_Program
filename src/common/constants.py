@@ -80,7 +80,7 @@ START_TAB_GENERAL_LABEL: str = "Start Panel"
 START_TAB_START_BUTTON_LABEL: str = "Start"
 START_TAB_AREA_SET_LABEL: str = "Area Set: "
 START_TAB_MESH_SET_LABEL: str = "Mesh Generated: "
-START_TAB_MODEL_SET_LABEL: str = "Mesh Generated: "
+START_TAB_MODEL_SET_LABEL: str = "Model Set: "
 
 START_TAB_DEFAULT_NOT_READY: str = "Not Ready"
 START_TAB_DEFAUT_VALUE: str = "Set by Default"

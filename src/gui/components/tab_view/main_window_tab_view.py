@@ -69,6 +69,11 @@ class MainWindowTabView(ctk.CTkTabview):
             text=START_TAB_DEFAULT_READY, fg_color="green"
         )
 
+    def update_model_ready_label(self) -> None:
+        self.is_model_set_value_label.configure(
+            text=START_TAB_DEFAULT_READY, fg_color="green"
+        )
+
     def __init__(self: ctk.CTkTabview, parent) -> None:
         super().__init__(
             parent,
@@ -172,8 +177,21 @@ class MainWindowTabView(ctk.CTkTabview):
                 messagebox.showerror("Error!", "Set diffusion coefficient correctly")
 
         def set_model_button_click() -> None:
-            print("test")
-            pass
+            try:
+                parent.math_model.diffusion_coefficient = float(
+                    self.diffusion_coefficient_entry.get()
+                )
+                parent.math_model.adhesion_measure = float(
+                    self.measure_adhesion_entry.get()
+                )
+                parent.math_model.apoptosis_measure = float(
+                    self.measure_apoptosis_entry.get()
+                )
+
+                self.update_model_ready_label()
+
+            except ValueError:
+                messagebox.showerror("Error", "Incorect value set")
 
         ### Tabs initialization.
         area_tab = self.add(MAIN_WINDOW_TAB_AREA_TITLE)
@@ -343,15 +361,15 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         diffusion_coefficient_label.place(relx=0, rely=0.05)
 
-        diffusion_coefficient_entry = ctk.CTkEntry(
+        self.diffusion_coefficient_entry = ctk.CTkEntry(
             math_model_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
             corner_radius=20,
             height=50,
         )
-        diffusion_coefficient_entry.insert(ctk.END, "1")
-        diffusion_coefficient_entry.place(relx=0, rely=0.11)
+        self.diffusion_coefficient_entry.insert(ctk.END, "1")
+        self.diffusion_coefficient_entry.place(relx=0, rely=0.11)
 
         measure_adhesion_label = ctk.CTkLabel(
             math_model_tab,
@@ -361,15 +379,15 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         measure_adhesion_label.place(relx=0, rely=0.19)
 
-        measure_adhesion_entry = ctk.CTkEntry(
+        self.measure_adhesion_entry = ctk.CTkEntry(
             math_model_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
             corner_radius=20,
             height=50,
         )
-        measure_adhesion_entry.insert(ctk.END, "1")
-        measure_adhesion_entry.place(relx=0, rely=0.25)
+        self.measure_adhesion_entry.insert(ctk.END, "1")
+        self.measure_adhesion_entry.place(relx=0, rely=0.25)
 
         measure_apoptosis_label = ctk.CTkLabel(
             math_model_tab,
@@ -379,15 +397,15 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         measure_apoptosis_label.place(relx=0, rely=0.34)
 
-        measure_apoptosis_entry = ctk.CTkEntry(
+        self.measure_apoptosis_entry = ctk.CTkEntry(
             math_model_tab,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
             font=("Helvetica", 16),
             corner_radius=20,
             height=50,
         )
-        measure_apoptosis_entry.insert(ctk.END, "1")
-        measure_apoptosis_entry.place(relx=0, rely=0.39)
+        self.measure_apoptosis_entry.insert(ctk.END, "1")
+        self.measure_apoptosis_entry.place(relx=0, rely=0.39)
 
         set_model_button = GenericTabButton(
             math_model_tab,
@@ -448,14 +466,14 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         is_model_set_label.place(relx=0, rely=0.19)
 
-        is_model_set_value_label = ctk.CTkLabel(
+        self.is_model_set_value_label = ctk.CTkLabel(
             start_panel_tab,
             width=60,
             font=("Helvetica", 16),
             text=START_TAB_DEFAUT_VALUE,
             fg_color="yellow",
         )
-        is_model_set_value_label.place(relx=0.25, rely=0.19)
+        self.is_model_set_value_label.place(relx=0.25, rely=0.19)
 
         start_simulation_button = GenericTabButton(
             start_panel_tab,
