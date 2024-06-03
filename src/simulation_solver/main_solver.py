@@ -107,13 +107,19 @@ def start_simulation(triangulation_results, segments, math_model):
     for i in range(len(vertices)):
         if i in boundary_points:
             x = vertices[i, 0]
-            k = Z_concentration[i]
-            pressure_value = compute_pressure(1, 1, Z_concentration[i], 1, x)
-            assembled_system[i, i] = 1e21
-            rhs[i] = 1e21 * pressure_value
+
+            pressure_value = compute_pressure(
+                math_model.adhesion_measure,
+                math_model.apoptosis_measure,
+                Z_concentration[i],
+                1,
+                x,
+            )
+            assembled_system[i, i] = 1e7
+            rhs[i] = 1e7 * pressure_value
 
     pressure_solution = np.linalg.solve(assembled_system, rhs)
-    
+
     X_concentration = triangulation_results["vertices"][:, 0]
     Y_concentration = triangulation_results["vertices"][:, 1]
     Z_concentration = pressure_solution
@@ -133,5 +139,5 @@ def start_simulation(triangulation_results, segments, math_model):
     ax.set_ylabel("Y")
     ax.set_zlabel("u(x, y)")
     plt.show()
-    
+
     return X_concentration, Y_concentration, Z_concentration
