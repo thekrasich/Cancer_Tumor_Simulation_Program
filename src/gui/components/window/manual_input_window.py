@@ -60,6 +60,8 @@ class ManualInputWindow(ctk.CTkToplevel):
         else:
             segments = np.array([])
 
+        print(points)
+        
         self.parent.area_boundary.points = points
         self.parent.area_boundary.segments = segments
 
