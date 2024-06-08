@@ -61,7 +61,7 @@ def start_simulation(triangulation_results, segments, math_model):
         X_concentration,
         Y_concentration,
         Z_concentration,
-        cmap="viridis",
+        cmap="Greys",
         edgecolor="none",
     )
     fig.colorbar(surf, shrink=0.5, aspect=5)
@@ -130,7 +130,7 @@ def start_simulation(triangulation_results, segments, math_model):
         X_concentration,
         Y_concentration,
         Z_concentration,
-        cmap="viridis",
+        cmap="Greys",
         edgecolor="none",
     )
     fig.colorbar(surf, shrink=0.5, aspect=5)
