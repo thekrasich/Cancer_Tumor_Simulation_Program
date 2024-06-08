@@ -11,11 +11,11 @@ class ManualInputWindow(ctk.CTkToplevel):
         self.parent = parent
 
         self.title("Manual input")
-        self.geometry(center_window_to_display(self, 400, 500))
+        self.geometry(center_window_to_display(self, 700, 700))
         self.resizable(False, False)
         self.attributes("-topmost", True)
 
-        self.canvas = ctk.CTkCanvas(self, width=400, height=400, bg="white")
+        self.canvas = ctk.CTkCanvas(self, width=700, height=600, bg="white")
         self.canvas.pack()
 
         self.points = []
@@ -50,6 +50,7 @@ class ManualInputWindow(ctk.CTkToplevel):
     ## TODO. Add abillity to change down_size and scale
     def get_points(self, scale=3):
         points = np.array(self.points)
+        points[:, 1] = self.canvas.winfo_height() - points[:, 1]
 
         min_vals = points.min(axis=0)
         max_vals = points.max(axis=0)
@@ -59,9 +60,7 @@ class ManualInputWindow(ctk.CTkToplevel):
             segments = np.array([(i, i + 1) for i in range(len(points) - 1)])
         else:
             segments = np.array([])
-
-        print(points)
-        
+                    
         self.parent.area_boundary.points = points
         self.parent.area_boundary.segments = segments
 
