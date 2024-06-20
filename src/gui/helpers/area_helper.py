@@ -17,5 +17,5 @@ def generate_preset_area(preset_type: str, number_of_points: int):
         pts0, seg0 = circle(60, 1.4)
         pts1, seg1 = circle(32, 0.6)
         points = np.vstack([pts0, pts1])
-        segments = np.vstack([seg0, seg1 + seg0.shape[0]])
+        segments = np.vstack([seg0])
         return points, segments

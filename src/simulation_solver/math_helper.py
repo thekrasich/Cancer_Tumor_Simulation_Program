@@ -101,5 +101,5 @@ def assemble_rhs(Qe, triangle, globalB):
     return globalB
 
 
-def compute_pressure(A, G, c, chi, x, d=2, k=1):
+def compute_pressure(A, G, c, chi, x, d=2, k=0):
     return k + (G - chi) * c - G - A * G * ((x * x) / (2 * d))

@@ -38,18 +38,19 @@ def start_simulation(triangulation_results, segments, math_model):
         )
 
         ## Question about math model
-        qe = compute_qe(triangle_vertices[i], fe=[1, 1, 1])
+        qe = compute_qe(triangle_vertices[i], fe=[.1, .1, .1])
 
         assembled_system = assemble_global_matrix(assembled_system, ke, triangles[i])
         rhs = assemble_rhs(qe, triangles[i], rhs)
 
     for i in range(len(vertices)):
         if i in boundary_points or i in boundary_points:
-            # assembled_system[i, :] = 0
-            assembled_system[i, i] = 1e21
-            rhs[i] = 1e21
+            assembled_system[i, :] = 0
+            assembled_system[i, i] = 1e7
+            rhs[i] = 1e7
 
     concentration_solution = np.linalg.solve(assembled_system, rhs)
+    print(concentration_solution)
 
     X_concentration = triangulation_results["vertices"][:, 0]
     Y_concentration = triangulation_results["vertices"][:, 1]
@@ -61,7 +62,7 @@ def start_simulation(triangulation_results, segments, math_model):
         X_concentration,
         Y_concentration,
         Z_concentration,
-        cmap="Greys",
+        cmap="YlOrRd",
         edgecolor="none",
     )
     fig.colorbar(surf, shrink=0.5, aspect=5)
@@ -103,18 +104,19 @@ def start_simulation(triangulation_results, segments, math_model):
 
         assembled_system = assemble_global_matrix(assembled_system, ke, triangles[i])
         rhs = assemble_rhs(qe, triangles[i], rhs)
-
+    
     for i in range(len(vertices)):
-        if i in boundary_points:
+        if i in boundary_points or i in boundary_points:
             x = vertices[i, 0]
 
             pressure_value = compute_pressure(
                 math_model.adhesion_measure,
                 math_model.apoptosis_measure,
                 Z_concentration[i],
-                1,
+                -0.65,
                 x,
             )
+            assembled_system[i, :] = 0
             assembled_system[i, i] = 1e7
             rhs[i] = 1e7 * pressure_value
 
@@ -123,14 +125,14 @@ def start_simulation(triangulation_results, segments, math_model):
     X_concentration = triangulation_results["vertices"][:, 0]
     Y_concentration = triangulation_results["vertices"][:, 1]
     Z_concentration = pressure_solution
-
+    print(pressure_solution)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
     surf = ax.plot_trisurf(
         X_concentration,
         Y_concentration,
         Z_concentration,
-        cmap="Greys",
+        cmap="YlOrRd",
         edgecolor="none",
     )
     fig.colorbar(surf, shrink=0.5, aspect=5)
