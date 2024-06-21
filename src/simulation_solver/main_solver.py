@@ -62,7 +62,7 @@ def start_simulation(triangulation_results, segments, math_model):
         X_concentration,
         Y_concentration,
         Z_concentration,
-        cmap="YlOrRd",
+        cmap="Grays",
         edgecolor="none",
     )
     fig.colorbar(surf, shrink=0.5, aspect=5)
@@ -95,8 +95,8 @@ def start_simulation(triangulation_results, segments, math_model):
         ke = np.array(
             compute_ke(
                 triangle_vertices[i],
-                a_11=math_model.diffusion_coefficient,
-                a_22=math_model.diffusion_coefficient,
+                a_11=1,
+                a_22=1,
             )
         )
 
@@ -132,7 +132,7 @@ def start_simulation(triangulation_results, segments, math_model):
         X_concentration,
         Y_concentration,
         Z_concentration,
-        cmap="YlOrRd",
+        cmap="Grays",
         edgecolor="none",
     )
     fig.colorbar(surf, shrink=0.5, aspect=5)
