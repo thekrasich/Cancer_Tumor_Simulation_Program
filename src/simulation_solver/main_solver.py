@@ -3,11 +3,11 @@ import numpy as np
 from simulation_solver.math_helper import (
     assemble_global_matrix,
     assemble_rhs,
+    compute_gradient,
     compute_ke,
     compute_qe,
     compute_pressure,
 )
-
 
 def start_simulation(triangulation_results, segments, math_model):
     vertices = triangulation_results["vertices"]
@@ -50,7 +50,18 @@ def start_simulation(triangulation_results, segments, math_model):
             rhs[i] = 1e7
 
     concentration_solution = np.linalg.solve(assembled_system, rhs)
-    print(concentration_solution)
+    l2_norm = np.linalg.norm(concentration_solution)
+    gradient_norm_squared = 0.0
+    for i in range(len(triangles)):
+        triangle_concentration = concentration_solution[triangles[i]]
+        gradient = compute_gradient(triangle_vertices[i], triangle_concentration)
+        gradient_norm_squared += np.dot(gradient, gradient)
+
+    l2_gradient_norm = np.sqrt(gradient_norm_squared)
+    print(f"Grad : {l2_gradient_norm}")
+
+    print(f"L2 : {l2_norm}")
+
 
     X_concentration = triangulation_results["vertices"][:, 0]
     Y_concentration = triangulation_results["vertices"][:, 1]
@@ -108,13 +119,14 @@ def start_simulation(triangulation_results, segments, math_model):
     for i in range(len(vertices)):
         if i in boundary_points or i in boundary_points:
             x = vertices[i, 0]
+            y = vertices[i, 1]
 
             pressure_value = compute_pressure(
                 math_model.adhesion_measure,
                 math_model.apoptosis_measure,
                 Z_concentration[i],
                 -0.65,
-                x,
+                [x, y],
             )
             assembled_system[i, :] = 0
             assembled_system[i, i] = 1e7

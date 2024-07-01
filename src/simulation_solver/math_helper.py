@@ -102,4 +102,28 @@ def assemble_rhs(Qe, triangle, globalB):
 
 
 def compute_pressure(A, G, c, chi, x, d=2, k=0):
-    return k + (G - chi) * c - G - A * G * ((x * x) / (2 * d))
+    return k + (G - chi) * c - G - A * G * ((dot_product(x, x)) / (2 * d))
+
+
+def dot_product(vector1, vector2):
+    if len(vector1) != len(vector2):
+        raise ValueError("Vectors must be of the same length")
+
+    product = sum(v1 * v2 for v1, v2 in zip(vector1, vector2))
+    return product
+def compute_gradient(triangle_vertices, concentration):
+    x = triangle_vertices[:, 0]
+    y = triangle_vertices[:, 1]
+
+    A = np.array([
+        [x[1] - x[0], x[2] - x[0]],
+        [y[1] - y[0], y[2] - y[0]]
+    ])
+
+    A_inv = np.linalg.inv(A)
+
+    delta_c = np.array([concentration[1] - concentration[0], concentration[2] - concentration[0]])
+
+    gradient = np.dot(A_inv, delta_c)
+
+    return gradient
