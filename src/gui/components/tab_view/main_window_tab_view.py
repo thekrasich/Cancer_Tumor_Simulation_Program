@@ -150,7 +150,6 @@ class MainWindowTabView(ctk.CTkTabview):
                     self.maximum_area.get(),
                 )
 
-                
                 ## TODO. If mesh not triangles why its called triangulate?
                 parent.mesh_object = triangulate_given_area(
                     parent.area_boundary.points,
@@ -167,6 +166,7 @@ class MainWindowTabView(ctk.CTkTabview):
                 messagebox.showerror(DEFAULT_ERROR_MESSAGE, SET_AREA_ERROR_MESSAGE)
 
         def start_simulation_button_click() -> None:
+            print("Starting sim")
             validation_status: ValidationStatuses = check_math_model_validity(
                 parent.math_model.diffusion_coefficient,
                 parent.math_model.adhesion_measure,
@@ -414,6 +414,45 @@ class MainWindowTabView(ctk.CTkTabview):
         )
         self.measure_apoptosis_entry.insert(ctk.END, "1")
         self.measure_apoptosis_entry.place(relx=0, rely=0.39)
+
+        time_step_label = ctk.CTkLabel(
+            math_model_tab,
+            width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
+            font=("Helvetica", 16),
+            text="Time Step Δt",
+        )
+        time_step_label.place(relx=0, rely=0.47)
+
+        self.time_step = ctk.CTkEntry(
+            math_model_tab,
+            width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
+            font=("Helvetica", 16),
+            corner_radius=20,
+            height=50,
+        )
+
+        self.time_step.insert(ctk.END, "0.01")
+        self.time_step.place(relx=0, rely=0.52)
+        
+        ## Normal
+        normalLabel = ctk.CTkLabel(
+            math_model_tab,
+            width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
+            font=("Helvetica", 16),
+            text="Normal (x,y)",
+        )
+        normalLabel.place(relx=0, rely=0.59)
+
+        self.normal = ctk.CTkEntry(
+            math_model_tab,
+            width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
+            font=("Helvetica", 16),
+            corner_radius=20,
+            height=50,
+        )
+
+        self.normal.insert(ctk.END, "1 1")
+        self.normal.place(relx=0, rely=0.65)
 
         set_model_button = GenericTabButton(
             math_model_tab,
