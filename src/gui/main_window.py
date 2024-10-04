@@ -34,7 +34,7 @@ class MainWindow(ctk.CTk):
                 self.application_settings.current_heigth,
             )
         )
-        self.resizable(False, False)
+        self.resizable(True, True)
         ctk.set_appearance_mode(self.application_settings.current_appearance_mode)
         ctk.set_default_color_theme(self.application_settings.current_color_theme)
 
