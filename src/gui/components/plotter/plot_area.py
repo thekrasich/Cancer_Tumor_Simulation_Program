@@ -9,6 +9,7 @@ from common.constants import (
     PLOTTER_X_PLACEMENT,
     PLOTTER_Y_PLACEMENT,
 )
+import tkinter as tk
 
 
 class AreaPlotArea(FigureCanvasTkAgg):
@@ -23,7 +24,7 @@ class AreaPlotArea(FigureCanvasTkAgg):
         self.ax = ax
         self.fig = fig
 
-        self.get_tk_widget().place(relx=PLOTTER_X_PLACEMENT, rely=PLOTTER_Y_PLACEMENT)
+        self.get_tk_widget().pack(fill=tk.BOTH, expand=True, side=tk.RIGHT)
         self.draw()
 
     def update_area_plot(self, parent, points):

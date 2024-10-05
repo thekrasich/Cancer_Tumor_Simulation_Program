@@ -60,6 +60,7 @@ from tkinter import messagebox
 from model.enums import ValidationStatuses
 from simulation_solver.checker import check_math_model_validity
 from simulation_solver.main_solver import start_simulation
+import tkinter as tk
 
 
 class MainWindowTabView(ctk.CTkTabview):
@@ -80,17 +81,12 @@ class MainWindowTabView(ctk.CTkTabview):
         )
 
     def __init__(self: ctk.CTkTabview, parent) -> None:
-        super().__init__(
-            parent,
-            parent.application_settings.current_width - 50,
-            parent.application_settings.current_heigth - 50,
-            20,
-        )
+        super().__init__(parent)
         self.presets_window = None
         self.boundary_condinitons_configuration_window = None
         self.manual_input_window = None
 
-        self.pack()
+        self.pack(fill=tk.BOTH, expand=True, padx=20, pady=20, side=tk.LEFT)
 
         def presets_button_click() -> None:
             if self.presets_window is None or not self.presets_window.winfo_exists():
@@ -433,7 +429,7 @@ class MainWindowTabView(ctk.CTkTabview):
 
         self.time_step.insert(ctk.END, "0.01")
         self.time_step.place(relx=0, rely=0.52)
-        
+
         ## Normal
         normalLabel = ctk.CTkLabel(
             math_model_tab,
