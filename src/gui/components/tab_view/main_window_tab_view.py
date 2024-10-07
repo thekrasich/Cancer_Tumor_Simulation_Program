@@ -137,8 +137,6 @@ class MainWindowTabView(ctk.CTkTabview):
 
         def mesh_area_button_click() -> None:
             if len(parent.area_boundary.points) != 0:
-                print("TEST")
-                print(parent.area_boundary.points)
                 triangulation_options = create_triangulation_options_string(
                     self.mesh_type_combobox.get(),
                     self.nodes_order_combobox.get(),

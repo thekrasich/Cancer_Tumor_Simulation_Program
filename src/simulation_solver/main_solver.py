@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
+from gui.components.window.final_result_window import ResultsWindow
 from simulation_solver.math_helper import (
     assemble_global_matrix,
     assemble_rhs,
@@ -8,6 +9,7 @@ from simulation_solver.math_helper import (
     compute_qe,
     compute_pressure,
 )
+
 
 def start_simulation(triangulation_results, segments, math_model):
     vertices = triangulation_results["vertices"]
@@ -38,7 +40,7 @@ def start_simulation(triangulation_results, segments, math_model):
         )
 
         ## Question about math model
-        qe = compute_qe(triangle_vertices[i], fe=[.1, .1, .1])
+        qe = compute_qe(triangle_vertices[i], fe=[0.1, 0.1, 0.1])
 
         assembled_system = assemble_global_matrix(assembled_system, ke, triangles[i])
         rhs = assemble_rhs(qe, triangles[i], rhs)
@@ -50,38 +52,10 @@ def start_simulation(triangulation_results, segments, math_model):
             rhs[i] = 1e7
 
     concentration_solution = np.linalg.solve(assembled_system, rhs)
-    l2_norm = np.linalg.norm(concentration_solution)
-    gradient_norm_squared = 0.0
-    for i in range(len(triangles)):
-        triangle_concentration = concentration_solution[triangles[i]]
-        gradient = compute_gradient(triangle_vertices[i], triangle_concentration)
-        gradient_norm_squared += np.dot(gradient, gradient)
-
-    l2_gradient_norm = np.sqrt(gradient_norm_squared)
-    print(f"Grad : {l2_gradient_norm}")
-
-    print(f"L2 : {l2_norm}")
-
 
     X_concentration = triangulation_results["vertices"][:, 0]
     Y_concentration = triangulation_results["vertices"][:, 1]
     Z_concentration = concentration_solution
-
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection="3d")
-    surf = ax.plot_trisurf(
-        X_concentration,
-        Y_concentration,
-        Z_concentration,
-        cmap="Grays",
-        edgecolor="none",
-    )
-    fig.colorbar(surf, shrink=0.5, aspect=5)
-    ax.set_title("Concentration")
-    ax.set_xlabel("X")
-    ax.set_ylabel("Y")
-    ax.set_zlabel("u(x, y)")
-    plt.show()
 
     ## pressure
     vertices = triangulation_results["vertices"]
@@ -115,7 +89,7 @@ def start_simulation(triangulation_results, segments, math_model):
 
         assembled_system = assemble_global_matrix(assembled_system, ke, triangles[i])
         rhs = assemble_rhs(qe, triangles[i], rhs)
-    
+
     for i in range(len(vertices)):
         if i in boundary_points or i in boundary_points:
             x = vertices[i, 0]
@@ -136,22 +110,13 @@ def start_simulation(triangulation_results, segments, math_model):
 
     X_concentration = triangulation_results["vertices"][:, 0]
     Y_concentration = triangulation_results["vertices"][:, 1]
-    Z_concentration = pressure_solution
-    print(pressure_solution)
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection="3d")
-    surf = ax.plot_trisurf(
-        X_concentration,
-        Y_concentration,
-        Z_concentration,
-        cmap="Grays",
-        edgecolor="none",
-    )
-    fig.colorbar(surf, shrink=0.5, aspect=5)
-    ax.set_title("Pressure")
-    ax.set_xlabel("X")
-    ax.set_ylabel("Y")
-    ax.set_zlabel("u(x, y)")
-    plt.show()
+    Z_pressure = pressure_solution
+
+    boundary_indices = {pt for edge in all_edges for pt in edge}   
+    concentration_data = (X_concentration, Y_concentration, Z_concentration)
+    pressure_data = (X_concentration, Y_concentration, Z_pressure)
+
+    results_window = ResultsWindow(boundary_indices, vertices, Z_pressure, Z_concentration)
+    results_window.mainloop()
 
     return X_concentration, Y_concentration, Z_concentration
