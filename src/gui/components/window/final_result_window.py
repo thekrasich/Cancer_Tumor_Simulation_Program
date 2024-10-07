@@ -19,9 +19,8 @@ class ResultsWindow(ctk.CTkToplevel):
         super().__init__()
 
         self.current_iteration = 1
-        self.dt = 0.1
+        self.dt = 1
 
-        # Перетворюємо boundary_indices на список або масив
         self.boundary_indices = np.array(list(boundary_indices))
         self.vertices = vertices.copy()
         self.pressure = pressure
@@ -39,7 +38,6 @@ class ResultsWindow(ctk.CTkToplevel):
         )
         self.iteration_label.pack(pady=10)
 
-        # Відображаємо граничні точки
         self.fig, self.ax = plt.subplots(figsize=(6, 4))
         self.boundary_plot = self.ax.scatter(
             self.vertices[self.boundary_indices, 0],
@@ -82,8 +80,6 @@ class ResultsWindow(ctk.CTkToplevel):
 
     def change_iteration(self):
         self.current_iteration += 1
-        self.dt += 0.1
-
         self.update_positions()
 
         self.boundary_plot.set_offsets(self.vertices[self.boundary_indices])
@@ -91,5 +87,6 @@ class ResultsWindow(ctk.CTkToplevel):
         self.iteration_label.configure(
             text=f"Current iteration: {self.current_iteration}, dt: {self.dt}"
         )
+        self.dt += 0.1
 
         self.canvas.draw()
