@@ -30,7 +30,7 @@ class ResultsWindow(ctk.CTkToplevel):
 
         self.title("Results Window")
         self.geometry(center_window_to_display(self, 900, 500))
-        self.resizable(False, False)
+        self.resizable(True, True)
         self.attributes("-topmost", True)
 
         self.iteration_label = ctk.CTkLabel(
@@ -45,6 +45,10 @@ class ResultsWindow(ctk.CTkToplevel):
             c="red",
             label="Boundary Points",
         )
+        
+        self.ax.set_xlim(-10, 10)  
+        self.ax.set_ylim(-10, 10)  
+        
         self.ax.set_title("Boundary Points")
         self.ax.set_xlabel("X")
         self.ax.set_ylabel("Y")
