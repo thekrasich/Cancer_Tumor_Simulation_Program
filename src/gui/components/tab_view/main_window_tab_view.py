@@ -37,7 +37,7 @@ from common.constants import (
     START_TAB_AREA_SET_LABEL,
     START_TAB_DEFAULT_NOT_READY,
     START_TAB_DEFAULT_READY,
-    START_TAB_DEFAUT_VALUE,
+    START_TAB_DEFAULT_VALUE,
     START_TAB_GENERAL_LABEL,
     START_TAB_MESH_SET_LABEL,
     START_TAB_MODEL_SET_LABEL,
@@ -83,7 +83,7 @@ class MainWindowTabView(ctk.CTkTabview):
     def __init__(self: ctk.CTkTabview, parent) -> None:
         super().__init__(parent)
         self.presets_window = None
-        self.boundary_condinitons_configuration_window = None
+        self.boundary_conditions_configuration_window = None
         self.manual_input_window = None
 
         self.pack(fill=tk.BOTH, expand=True, padx=20, pady=20, side=tk.LEFT)
@@ -125,8 +125,8 @@ class MainWindowTabView(ctk.CTkTabview):
 
         def configure_boundary_conditions_button_click() -> None:
             if (
-                self.boundary_condinitons_configuration_window is None
-                or not self.boundary_condinitons_configuration_window.winfo_exists()
+                self.boundary_conditions_configuration_window is None
+                or not self.boundary_conditions_configuration_window.winfo_exists()
             ):
                 self.presets_window = BoundaryConditionsWindow(parent)
             else:
@@ -174,7 +174,7 @@ class MainWindowTabView(ctk.CTkTabview):
 
             elif validation_status == ValidationStatuses.ADHESION_COEFFICIENT_ERROR:
                 messagebox.showerror(DEFAULT_ERROR_MESSAGE, ADHESION_ERROR_MESSAGE)
-            elif validation_status == ValidationStatuses.APTOSIS_COEFFICIENT_ERROR:
+            elif validation_status == ValidationStatuses.APOPTOSIS_COEFFICIENT_ERROR:
                 messagebox.showerror(DEFAULT_ERROR_MESSAGE, APOPTOSIS_ERROR_MESSAGE)
             elif validation_status == ValidationStatuses.DIFFUSION_COEFFICIENT_ERROR:
                 messagebox.showerror(DEFAULT_ERROR_MESSAGE, DIFFUSION_ERROR_MESSAGE)
@@ -194,7 +194,7 @@ class MainWindowTabView(ctk.CTkTabview):
                 self.update_model_ready_label()
 
             except ValueError:
-                messagebox.showerror("Error", "Incorect value set")
+                messagebox.showerror("Error", "Incorrect value set")
 
         ### Tabs initialization.
         area_tab = self.add(MAIN_WINDOW_TAB_AREA_TITLE)
@@ -511,7 +511,7 @@ class MainWindowTabView(ctk.CTkTabview):
             start_panel_tab,
             width=60,
             font=("Helvetica", 16),
-            text=START_TAB_DEFAUT_VALUE,
+            text=START_TAB_DEFAULT_VALUE,
             fg_color="yellow",
         )
         self.is_model_set_value_label.place(relx=0.25, rely=0.19)

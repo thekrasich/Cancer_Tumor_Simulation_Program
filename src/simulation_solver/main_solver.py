@@ -39,7 +39,6 @@ def start_simulation(triangulation_results, segments, math_model):
             )
         )
 
-        ## Question about math model
         qe = compute_qe(triangle_vertices[i], fe=[0.1, 0.1, 0.1])
 
         assembled_system = assemble_global_matrix(assembled_system, ke, triangles[i])
@@ -84,7 +83,7 @@ def start_simulation(triangulation_results, segments, math_model):
                 a_22=1,
             )
         )
-
+            
         qe = compute_qe(triangle_vertices[i], fe=[1, 1, 1])
 
         assembled_system = assemble_global_matrix(assembled_system, ke, triangles[i])

@@ -10,6 +10,6 @@ def check_math_model_validity(
     elif adhesion_coefficient < 0 or adhesion_coefficient is None:
         return ValidationStatuses.ADHESION_COEFFICIENT_ERROR
     elif aptosis_coefficient < 0 or aptosis_coefficient is None:
-        return ValidationStatuses.APTOSIS_COEFFICIENT_ERROR
+        return ValidationStatuses.APOPTOSIS_COEFFICIENT_ERROR
 
     return ValidationStatuses.OK

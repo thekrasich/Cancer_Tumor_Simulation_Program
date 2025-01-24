@@ -83,7 +83,7 @@ START_TAB_MESH_SET_LABEL: str = "Mesh Generated: "
 START_TAB_MODEL_SET_LABEL: str = "Model Set: "
 
 START_TAB_DEFAULT_NOT_READY: str = "Not Ready"
-START_TAB_DEFAUT_VALUE: str = "Set by Default"
+START_TAB_DEFAULT_VALUE: str = "Set by Default"
 START_TAB_DEFAULT_READY: str = "Ready"
 
 ### PRESETS
