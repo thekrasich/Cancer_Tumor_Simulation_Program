@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 import numpy as np
 from gui.components.window.final_result_window import ResultsWindow
+from services.fem_service import FEMService
 from simulation_solver.math_helper import (
     assemble_global_matrix,
     assemble_rhs,
@@ -56,6 +57,19 @@ def start_simulation(triangulation_results, segments, math_model):
     Y_concentration = triangulation_results["vertices"][:, 1]
     Z_concentration = concentration_solution
 
+    ### Todo. Temporary logic
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection="3d")
+    surf = ax.plot_trisurf(
+        X_concentration, Y_concentration, Z_concentration, cmap="viridis"
+    )
+    fig.colorbar(surf, shrink=0.5, aspect=5)
+    ax.set_title("Solution")
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.set_zlabel("u(x, y)")
+    plt.show()
+
     ## pressure
     vertices = triangulation_results["vertices"]
     triangles = triangulation_results["triangles"]
@@ -83,7 +97,7 @@ def start_simulation(triangulation_results, segments, math_model):
                 a_22=1,
             )
         )
-            
+
         qe = compute_qe(triangle_vertices[i], fe=[1, 1, 1])
 
         assembled_system = assemble_global_matrix(assembled_system, ke, triangles[i])
@@ -105,17 +119,14 @@ def start_simulation(triangulation_results, segments, math_model):
             assembled_system[i, i] = 1e7
             rhs[i] = 1e7 * pressure_value
 
-    pressure_solution = np.linalg.solve(assembled_system, rhs)
+    pressure_solution = FEMService.solve_system(assembled_system, rhs)
 
     X_concentration = triangulation_results["vertices"][:, 0]
     Y_concentration = triangulation_results["vertices"][:, 1]
     Z_pressure = pressure_solution
 
-    boundary_indices = {pt for edge in all_edges for pt in edge}   
+    boundary_indices = {pt for edge in all_edges for pt in edge}
     concentration_data = (X_concentration, Y_concentration, Z_concentration)
     pressure_data = (X_concentration, Y_concentration, Z_pressure)
-
-    results_window = ResultsWindow(boundary_indices, vertices, Z_pressure, Z_concentration)
-    results_window.mainloop()
 
     return X_concentration, Y_concentration, Z_concentration
