@@ -2,9 +2,6 @@ import numpy
 
 
 class FEMService:
-    def __init__(self) -> None:
-        pass
-
     @staticmethod
     def assemble_global_matrix():
         pass

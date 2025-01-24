@@ -2,9 +2,6 @@ import numpy
 
 
 class FiniteElementLocalMatrixService:
-    def __init__(self) -> None:
-        pass
-
     @staticmethod
     def compute_stiffness_matrix(
         triangle_vertices: numpy.ndarray,
