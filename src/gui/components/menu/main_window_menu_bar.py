@@ -1,11 +1,11 @@
 from common.constants import (
     MAIN_WINDOW_MENU_ABOUT_TITLE,
-    MAIN_WINDOW_MENU_DOCUMMENTATION_TITLE,
+    MAIN_WINDOW_MENU_DOCUMENTATION_TITLE,
     MAIN_WINDOW_MENU_EXIT_TITLE,
     MAIN_WINDOW_MENU_SETTINGS_TITLE,
     MENU_ABOUT_TAB_MESSAGE,
     MENU_ABOUT_TAB_TITLE,
-    MENU_DOCUMMENTATION_URL,
+    MENU_DOCUMENTATION_URL,
     MENU_EXIT_TAB_MESSAGE,
     MENU_EXIT_TAB_TITLE,
 )
@@ -37,12 +37,12 @@ class MainWindowMenuBar(CTkMenuBar):
             messagebox.showinfo(MENU_ABOUT_TAB_TITLE, MENU_ABOUT_TAB_MESSAGE)
 
         def docummentation_button_click() -> None:
-            webbrowser.open(MENU_DOCUMMENTATION_URL)
+            webbrowser.open(MENU_DOCUMENTATION_URL)
 
         super().__init__(parent)
         self.add_cascade(MAIN_WINDOW_MENU_EXIT_TITLE, exit_button_click)
         self.add_cascade(MAIN_WINDOW_MENU_SETTINGS_TITLE, settings_button_click)
         self.add_cascade(MAIN_WINDOW_MENU_ABOUT_TITLE, about_button_click)
         self.add_cascade(
-            MAIN_WINDOW_MENU_DOCUMMENTATION_TITLE, docummentation_button_click
+            MAIN_WINDOW_MENU_DOCUMENTATION_TITLE, docummentation_button_click
         )

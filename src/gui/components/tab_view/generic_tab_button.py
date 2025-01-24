@@ -1,7 +1,7 @@
 import customtkinter as ctk
 
 from common.constants import (
-    MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGTH,
+    MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGHT,
     MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
 )
 
@@ -13,7 +13,7 @@ class GenericTabButton(ctk.CTkButton):
         super().__init__(
             parent,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
-            height=MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGTH,
+            height=MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGHT,
             text=text,
             command=command,
             font=("Helvetica", 18),
@@ -29,7 +29,7 @@ class GenericSettingsButton(ctk.CTkButton):
         super().__init__(
             parent,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH / 2,
-            height=MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGTH / 1.2,
+            height=MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGHT / 1.2,
             text=text,
             command=command,
             font=("Helvetica", 18),
@@ -45,7 +45,7 @@ class WarningGenericTabButton(ctk.CTkButton):
         super().__init__(
             parent,
             width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
-            height=MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGTH,
+            height=MAIN_WINDOW_TAB_GENERIC_BUTTON_HEIGHT,
             text=text,
             command=command,
             font=("Helvetica", 18),
