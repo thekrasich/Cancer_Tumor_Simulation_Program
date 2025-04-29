@@ -4,7 +4,7 @@ from matplotlib.collections import PolyCollection
 import numpy as np
 
 from common.constants import (
-    PLOTTER_HEIGTH_INCHES,
+    PLOTTER_HEIGHT_INCHES,
     PLOTTER_WIDTH_INCHES,
     PLOTTER_X_PLACEMENT,
     PLOTTER_Y_PLACEMENT,
@@ -15,7 +15,7 @@ import tkinter as tk
 class AreaPlotArea(FigureCanvasTkAgg):
     def __init__(self, parent) -> None:
         fig, ax = plt.subplots()
-        fig.set_size_inches(PLOTTER_WIDTH_INCHES, PLOTTER_HEIGTH_INCHES)
+        fig.set_size_inches(PLOTTER_WIDTH_INCHES, PLOTTER_HEIGHT_INCHES)
         ax.axis("on")
         ax.set_aspect("equal", adjustable="datalim")
         plt.grid(True)
@@ -29,7 +29,7 @@ class AreaPlotArea(FigureCanvasTkAgg):
 
     def update_area_plot(self, parent, points):
         fig, ax = plt.subplots()
-        fig.set_size_inches(PLOTTER_WIDTH_INCHES, PLOTTER_HEIGTH_INCHES)
+        fig.set_size_inches(PLOTTER_WIDTH_INCHES, PLOTTER_HEIGHT_INCHES)
 
         x = points[:, 0]
         y = points[:, 1]
@@ -49,7 +49,7 @@ class AreaPlotArea(FigureCanvasTkAgg):
 
     def update_area_triangulation(self, parent, triangulation_result):
         fig, ax = plt.subplots()
-        fig.set_size_inches(PLOTTER_WIDTH_INCHES, PLOTTER_HEIGTH_INCHES)
+        fig.set_size_inches(PLOTTER_WIDTH_INCHES, PLOTTER_HEIGHT_INCHES)
 
         triangles = triangulation_result["triangles"]
         vertices = triangulation_result["vertices"]
@@ -125,7 +125,7 @@ class AreaPlotArea(FigureCanvasTkAgg):
 
     def clear_area(self, parent):
         fig, ax = plt.subplots()
-        fig.set_size_inches(PLOTTER_WIDTH_INCHES, PLOTTER_HEIGTH_INCHES)
+        fig.set_size_inches(PLOTTER_WIDTH_INCHES, PLOTTER_HEIGHT_INCHES)
 
         ax.axis("on")
         plt.grid(True)

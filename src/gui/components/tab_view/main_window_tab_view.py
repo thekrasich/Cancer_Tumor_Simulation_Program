@@ -37,7 +37,7 @@ from common.constants import (
     START_TAB_AREA_SET_LABEL,
     START_TAB_DEFAULT_NOT_READY,
     START_TAB_DEFAULT_READY,
-    START_TAB_DEFAUT_VALUE,
+    START_TAB_DEFAULT_VALUE,
     START_TAB_GENERAL_LABEL,
     START_TAB_MESH_SET_LABEL,
     START_TAB_MODEL_SET_LABEL,
@@ -57,8 +57,6 @@ from gui.helpers.mesh_helper import (
 )
 from tkinter import messagebox
 
-from model.enums import ValidationStatuses
-from simulation_solver.checker import check_math_model_validity
 from simulation_solver.main_solver import start_simulation
 import tkinter as tk
 
@@ -83,7 +81,7 @@ class MainWindowTabView(ctk.CTkTabview):
     def __init__(self: ctk.CTkTabview, parent) -> None:
         super().__init__(parent)
         self.presets_window = None
-        self.boundary_condinitons_configuration_window = None
+        self.boundary_conditions_configuration_window = None
         self.manual_input_window = None
 
         self.pack(fill=tk.BOTH, expand=True, padx=20, pady=20, side=tk.LEFT)
@@ -125,8 +123,8 @@ class MainWindowTabView(ctk.CTkTabview):
 
         def configure_boundary_conditions_button_click() -> None:
             if (
-                self.boundary_condinitons_configuration_window is None
-                or not self.boundary_condinitons_configuration_window.winfo_exists()
+                self.boundary_conditions_configuration_window is None
+                or not self.boundary_conditions_configuration_window.winfo_exists()
             ):
                 self.presets_window = BoundaryConditionsWindow(parent)
             else:
@@ -160,24 +158,9 @@ class MainWindowTabView(ctk.CTkTabview):
                 messagebox.showerror(DEFAULT_ERROR_MESSAGE, SET_AREA_ERROR_MESSAGE)
 
         def start_simulation_button_click() -> None:
-            print("Starting sim")
-            validation_status: ValidationStatuses = check_math_model_validity(
-                parent.math_model.diffusion_coefficient,
-                parent.math_model.adhesion_measure,
-                parent.math_model.apoptosis_measure,
+            start_simulation(
+                parent.mesh_object, parent.area_boundary.segments, parent.math_model
             )
-
-            if validation_status == ValidationStatuses.OK:
-                start_simulation(
-                    parent.mesh_object, parent.area_boundary.segments, parent.math_model
-                )
-
-            elif validation_status == ValidationStatuses.ADHESION_COEFFICIENT_ERROR:
-                messagebox.showerror(DEFAULT_ERROR_MESSAGE, ADHESION_ERROR_MESSAGE)
-            elif validation_status == ValidationStatuses.APTOSIS_COEFFICIENT_ERROR:
-                messagebox.showerror(DEFAULT_ERROR_MESSAGE, APOPTOSIS_ERROR_MESSAGE)
-            elif validation_status == ValidationStatuses.DIFFUSION_COEFFICIENT_ERROR:
-                messagebox.showerror(DEFAULT_ERROR_MESSAGE, DIFFUSION_ERROR_MESSAGE)
 
         def set_model_button_click() -> None:
             try:
@@ -194,7 +177,7 @@ class MainWindowTabView(ctk.CTkTabview):
                 self.update_model_ready_label()
 
             except ValueError:
-                messagebox.showerror("Error", "Incorect value set")
+                messagebox.showerror("Error", "Incorrect value set")
 
         ### Tabs initialization.
         area_tab = self.add(MAIN_WINDOW_TAB_AREA_TITLE)
@@ -428,26 +411,6 @@ class MainWindowTabView(ctk.CTkTabview):
         self.time_step.insert(ctk.END, "0.01")
         self.time_step.place(relx=0, rely=0.52)
 
-        ## Normal
-        normalLabel = ctk.CTkLabel(
-            math_model_tab,
-            width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
-            font=("Helvetica", 16),
-            text="Normal (x,y)",
-        )
-        normalLabel.place(relx=0, rely=0.59)
-
-        self.normal = ctk.CTkEntry(
-            math_model_tab,
-            width=MAIN_WINDOW_TAB_GENERIC_BUTTON_WIDTH,
-            font=("Helvetica", 16),
-            corner_radius=20,
-            height=50,
-        )
-
-        self.normal.insert(ctk.END, "1 1")
-        self.normal.place(relx=0, rely=0.65)
-
         set_model_button = GenericTabButton(
             math_model_tab,
             MATH_MODEL_TAB_SET_MODEL_BUTTON_LABEL,
@@ -511,7 +474,7 @@ class MainWindowTabView(ctk.CTkTabview):
             start_panel_tab,
             width=60,
             font=("Helvetica", 16),
-            text=START_TAB_DEFAUT_VALUE,
+            text=START_TAB_DEFAULT_VALUE,
             fg_color="yellow",
         )
         self.is_model_set_value_label.place(relx=0.25, rely=0.19)
